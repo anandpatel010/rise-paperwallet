@@ -1,7 +1,60 @@
 
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 body {
+  margin-bottom: 80px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
   padding-top: 20px;
-  padding-bottom: 20px;
+  background-color: #5f696e;
+  color: #ddd;
+}
+
+.page-header h1 {
+  font-size: 320%;
+}
+
+.page-header h1 a {
+  color: #222;
+}
+
+.paper {
+  position: relative;
+  width: 500px;
+  height: 250px;
+  background-color: #ddd;
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+
+.paper .qr_address_paper {
+  position: absolute;
+  top: 50;
+  left: 120;
+}
+
+.paper h4 {
+  padding-top: 20px;
+}
+
+.mousemsg {
+  -webkit-animation: pulsate 1.5s ease-out;
+  -webkit-animation-iteration-count: infinite;
+  opacity: 0;
+}
+
+@-webkit-keyframes pulsate {
+    0% { opacity: 0.0; }
+    50% { opacity: 1.0; }
+    100% { opacity: 0.0; }
 }
 
 .after {
@@ -9,32 +62,30 @@ body {
 }
 
 .secret, .address {
-  font-size: 150%;
   text-align: center;
   font-weight: bold;
-  margin: 5px 0;
 }
 
 .address {
   font-size: 200%;
 }
 
+.secret {
+  font-size: 150%;
+}
+
 .qr {
-  margin: 20px 5px;
+  margin: 20px 0;
 }
 
 .ms {
   font-family: monospace;
-}
-
-.footer {
-  margin-top: 25px;
+  word-wrap: break-word;
 }
 
 .ball, .ball2 {
   position: absolute;
   background-color: #0288d1;
-  border: 1px solid #5f696e;
   width:  8px;
   height: 8px;
   border-radius: 20px;

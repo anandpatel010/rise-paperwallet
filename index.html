@@ -19,9 +19,14 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
-          <img class="pull-right" src="assets/images/logo_icon_96.png">
-          <div class="page-header">
-            <h1>liskpaperwallet.com</h1>
+          <div class="page-header text-center">
+            <h1><a href="index.html">liskpaperwallet.com</a></h1>
+            <h5>Unofficial paper wallet generator for <a href="http://lisk.io">Lisk</a> cryptocurrency</h5>
+            <div>
+              <a class="github-button" href="https://github.com/rferro/liskpaperwallet" data-icon="octicon-star" aria-label="Star rferro/liskpaperwallet on GitHub">Star</a>
+              <a class="github-button" href="https://github.com/rferro/liskpaperwallet/archive/master.zip" data-icon="octicon-cloud-download" aria-label="Download rferro/liskpaperwallet on GitHub">Download</a>
+              <a class="github-button" href="https://github.com/rferro" aria-label="Follow @rferro on GitHub">Follow @rferro</a>
+            </div>
           </div>
         </div>
       </div>
@@ -30,6 +35,7 @@
           <div class="progress">
             <div class="progress-bar progress-bar-striped active" role="progressbar"></div>
           </div>
+          <h4 class="text-center before mousemsg">Move your mouse to generate a random wallet</h4>
         </div>
       </div>
       <div class="row after">
@@ -64,22 +70,41 @@
       </div>
       <div class="row after">
         <div class="col-md-6 text-center">
-          <h2>Lisk Address</h2>
+          <h3>Lisk Address (SHARE)</h3>
           <div class="qr qr_address"></div>
         </div>
         <div class="col-md-6 text-center">
-          <h2>Passphrase</h2>
+          <h3>Passphrase (SECRET!)</h3>
           <div class="qr qr_secret"></div>
         </div>
       </div>
-      <div class="row after footer">
+      <div class="row after">
         <div class="col-md-12 text-center">
-          <a class="github-button" href="https://github.com/rferro" aria-label="Follow @rferro on GitHub">Follow @rferro</a>
-          <a class="github-button" href="https://github.com/rferro/liskpaperwallet" data-icon="octicon-star" aria-label="Star rferro/liskpaperwallet on GitHub">Star</a>
-          <a class="github-button" href="https://github.com/rferro/liskpaperwallet/archive/master.zip" data-icon="octicon-cloud-download" aria-label="Download rferro/liskpaperwallet on GitHub">Download</a>
+          <h2>Paper Wallet</h2>
+          <div class="paper center-block">
+            <h4>coming soon</h4>
+          </div>
         </div>
+      </div>
+      <div class="row after">
         <div class="col-md-12 text-center">
-          Donations: (Lisk) 14215973503206850735L (BTC) 1Ciuy8quwojLQKhdBFL46CQ8nc5vSkbKhP
+          <div class="alert alert-warning" role="alert">
+            <strong>For security, use this tool offline:</strong> <a href="https://github.com/rferro/liskpaperwallet/archive/master.zip" class="alert-link">download</a> the source code and run index.html in your browser without internet access.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="container">
+        <div class="text-center">
+          <div>
+            liskpaperwallet v0.0.1
+          </div>
+          <div>
+            <small>
+              Donations: <span class="ms">14215973503206850735L</span> (LISK) <span class="ms">1Ciuy8quwojLQKhdBFL46CQ8nc5vSkbKhP</span> (BTC)
+            </small>
+          </div>
         </div>
       </div>
     </div>
@@ -88,7 +113,6 @@
     <script src="assets/js/jquery.qrcode.min.js"></script>
     <script src="assets/js/liskwallet.js"></script>
     <script src="assets/js/main.js"></script>
-    <!-- Place this tag right after the last button or just before your close body tag. -->
-<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+    <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
   </body>
 </html>

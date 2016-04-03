@@ -47,9 +47,13 @@
   var $address = $('.address');
   var $publicKey = $('.publicKey');
   var $privateKey = $('.privateKey');
+  var $after = $('.after');
+  var $before = $('.before');
+
   var $qr_address = $('.qr_address');
   var $qr_secret = $('.qr_secret');
-  var $after = $('.after');
+  var $qr_address_paper = $('.qr_address_paper div');
+  var $qr_secret_paper = $('.qr_secret_paper div');
 
   var secret, lw;
 
@@ -60,14 +64,35 @@
     $publicKey.text(lw.publicKey);
     $privateKey.text(lw.privateKey);
 
-    $qr_address.qrcode({ width: 400, height: 400, text: lw.address });
-    $qr_secret.qrcode({ width: 400, height: 400, text: lw.secret });
+    $qr_address.qrcode({ width: 300, height: 300, text: lw.address });
+    $qr_secret.qrcode({ width: 300, height: 300, text: lw.secret });
 
-    $after.fadeIn('slow');
+    $qr_address_paper.qrcode({ width: 150, height: 150, text: lw.address });
+    $qr_secret_paper.qrcode({ width: 150, height: 150, text: lw.secret });
+
+    $after.fadeIn();
+    $before.slideUp();
+
+    $('.ms').click(function () {
+      var range, selection;
+
+      if (window.getSelection) {
+         selection = window.getSelection();
+         range = document.createRange();
+         range.selectNodeContents(this);
+         selection.removeAllRanges();
+         selection.addRange(range);
+      }
+      else if (document.body.createTextRange) {
+         range = document.body.createTextRange();
+         range.moveToElementText(this);
+         range.select();
+      }
+    });
   }
 
   balls(
-    80,
+    80 + parseInt(Math.random() * 80),
     function () {
       secret = LiskWallet.generateMnemonic();
       $secret.text(secret);
