@@ -68,7 +68,7 @@
   }
 
   balls(
-    20,
+    120,
     function () {
       secret = LiskWallet.generateMnemonic();
       $secret.text(secret);
