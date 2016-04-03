@@ -8,11 +8,15 @@ body {
   display: none;
 }
 
-.secret {
+.secret, .address {
   font-size: 150%;
   text-align: center;
   font-weight: bold;
-  margin: 20px 0;
+  margin: 5px 0;
+}
+
+.address {
+  font-size: 200%;
 }
 
 .qr {
@@ -21,6 +25,10 @@ body {
 
 .ms {
   font-family: monospace;
+}
+
+.footer {
+  margin-top: 25px;
 }
 
 .ball, .ball2 {

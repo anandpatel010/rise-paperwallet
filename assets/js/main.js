@@ -56,7 +56,6 @@
   var build = function () {
     lw = LiskWallet(secret);
 
-    $hash.text(lw.hash);
     $address.text(lw.address);
     $publicKey.text(lw.publicKey);
     $privateKey.text(lw.privateKey);
@@ -68,7 +67,7 @@
   }
 
   balls(
-    120,
+    80,
     function () {
       secret = LiskWallet.generateMnemonic();
       $secret.text(secret);
