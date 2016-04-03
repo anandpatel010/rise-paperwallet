@@ -1,7 +1,7 @@
 
 # liskpaperwallet.com
 
-Lisk Paper Wallet Generator. In development.
+Unofficial paper wallet generator for Lisk cryptocurrency. In development.
 
 ## License
 
