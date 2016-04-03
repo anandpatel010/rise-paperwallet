@@ -46,9 +46,12 @@ body {
 }
 
 .mousemsg {
+  opacity: 0;
+}
+
+.pulsate {
   -webkit-animation: pulsate 1.5s ease-out;
   -webkit-animation-iteration-count: infinite;
-  opacity: 0;
 }
 
 @-webkit-keyframes pulsate {

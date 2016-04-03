@@ -73,6 +73,8 @@
     $after.fadeIn();
     $before.slideUp();
 
+    $('.page-header small').addClass('pulsate');
+
     $('.ms').click(function () {
       var range, selection;
 
