@@ -1,5 +1,5 @@
 
-# liskpaperwallet
+# liskpaperwallet.com
 
 Lisk Paper Wallet Generator. In development.
 
