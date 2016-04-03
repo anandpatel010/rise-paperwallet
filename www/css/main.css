@@ -1,0 +1,65 @@
+
+body {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.after {
+  display: none;
+}
+
+.secret {
+  font-size: 150%;
+  text-align: center;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.qr {
+  margin: 20px 5px;
+}
+
+.ms {
+  font-family: monospace;
+}
+
+.ball, .ball2 {
+  position: absolute;
+  background-color: #0288d1;
+  border: 1px solid #5f696e;
+  width:  8px;
+  height: 8px;
+  border-radius: 20px;
+}
+
+.ball {
+  animation: anim 1s;
+  opacity: 0;
+}
+
+.ball2 {
+  animation: anim2 1s;
+  opacity: 0.2;
+}
+
+@keyframes anim
+{
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    top: -10px;
+    left: 50%;
+  }
+}
+
+@keyframes anim2
+{
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}

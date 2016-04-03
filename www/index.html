@@ -1,0 +1,73 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>liskpaperwallet.com</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <img class="pull-right" src="images/logo_icon_96.png">
+          <div class="page-header">
+            <h1>liskpaperwallet.com</h1>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped active" role="progressbar"></div>
+          </div>
+        </div>
+      </div>
+      <div class="row after">
+        <div class="col-md-12">
+          <div class="panel panel-success">
+            <div class="panel-heading">
+              <h3 class="panel-title">Your Passphrase:</h3>
+            </div>
+            <div class="panel-body ms secret">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row after">
+        <div class="col-md-12">
+          <ul class="list-group">
+            <li class="list-group-item"><span class="badge">SHA256 of Passphrase</span><span class="ms hash"></span></li>
+            <li class="list-group-item"><span class="badge">Lisk Address</span><span class="ms address"></span></li>
+            <li class="list-group-item"><span class="badge">Public Key</span><span class="ms publicKey"></span></li>
+            <li class="list-group-item"><span class="badge">Private Key</span><span class="ms privateKey"></span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="row after">
+        <div class="col-md-6 text-center">
+          <h2>Lisk Address</h2>
+          <div class="qr qr_address"></div>
+        </div>
+        <div class="col-md-6 text-center">
+          <h2>Passphrase</h2>
+          <div class="qr qr_secret"></div>
+        </div>
+      </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.qrcode.min.js"></script>
+    <script src="js/liskwallet.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
