@@ -19,17 +19,21 @@ body {
 }
 
 .page-header h1 {
-  font-size: 320%;
+  font-size: 280%;
 }
 
 .page-header h1 a {
   color: #222;
 }
 
+.gh-btns {
+  height: 30px;
+}
+
 .paper {
   position: relative;
-  width: 500px;
-  height: 250px;
+  width: 600px;
+  height: 320px;
   background-color: #ddd;
   margin-top: 10px;
   margin-bottom: 25px;
@@ -46,22 +50,26 @@ body {
 }
 
 .mousemsg {
-  opacity: 0;
+  opacity: 0.4;
 }
 
 .pulsate {
-  -webkit-animation: pulsate 1.5s ease-out;
+  -webkit-animation: pulsate 0.8s ease-out;
   -webkit-animation-iteration-count: infinite;
 }
 
 @-webkit-keyframes pulsate {
-    0% { opacity: 0.0; }
+    0% { opacity: 0.4; }
     50% { opacity: 1.0; }
-    100% { opacity: 0.0; }
+    100% { opacity: 0.4; }
 }
 
-.after {
+.after, .init, .my {
   display: none;
+}
+
+.my input {
+  text-align: center;
 }
 
 .secret, .address {
@@ -77,6 +85,10 @@ body {
   font-size: 150%;
 }
 
+.keys {
+  opacity: 0.5;
+}
+
 .qr {
   margin: 20px 0;
 }
@@ -84,6 +96,11 @@ body {
 .ms {
   font-family: monospace;
   word-wrap: break-word;
+}
+
+.progress-bar {
+  background-image: none;
+  background-color: #0288d1;
 }
 
 .ball, .ball2 {
@@ -101,7 +118,7 @@ body {
 
 .ball2 {
   animation: anim2 1s;
-  opacity: 0.2;
+  opacity: 0.1;
 }
 
 @keyframes anim
@@ -122,6 +139,6 @@ body {
     opacity: 1;
   }
   100% {
-    opacity: 0.2;
+    opacity: 0.1;
   }
 }

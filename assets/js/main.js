@@ -33,8 +33,8 @@
         if (count >= total) {
           cb();
           $doc.unbind('mousemove', listener);
-          $('.ball, .ball2').fadeOut(function () { this.remove(); });
-          setTimeout(function () { $pb.parent().slideUp(); }, 1);
+          $('.ball, .ball2').fadeOut('fast', function () { this.remove(); });
+          setTimeout(function () { $pb.parent().slideUp('fast'); }, 1);
         }
       }
     };
@@ -70,10 +70,8 @@
     $qr_address_paper.qrcode({ width: 150, height: 150, text: lw.address });
     $qr_secret_paper.qrcode({ width: 150, height: 150, text: lw.secret });
 
-    $after.fadeIn();
-    $before.slideUp();
-
-    $('.page-header small').addClass('pulsate');
+    $after.fadeIn('fast');
+    $before.slideUp('fast');
 
     $('.ms').click(function () {
       var range, selection;
@@ -93,13 +91,62 @@
     });
   }
 
-  balls(
-    80 + parseInt(Math.random() * 80),
-    function () {
-      secret = LiskWallet.generateMnemonic();
-      $secret.text(secret);
-    },
-    build
-  );
+  var setSecret = function (data) {
+    secret = data;
+    $secret.text(secret);
+  };
+
+  $('.btns .btn').click(function () {
+    var $this = $(this).attr('disabled', 1);
+    $this.parents('.row').slideUp('fast');
+
+    if ($this.hasClass('btn_random')) {
+      $('.init').fadeIn('fast');
+
+      balls(
+        80 + parseInt(Math.random() * 80),
+        function () {
+          setSecret(LiskWallet.generateMnemonic());
+        },
+        build
+      );
+    }
+    else if ($this.hasClass('btn_my')) {
+      var $my = $('.my').fadeIn('fast');
+      var $form = $my.find('.form-group');
+      var $btn = $my.find('button');
+      var $input = $my.find('input');
+
+      var error = function (err) {
+        $btn.attr('disabled', err);
+
+        if (err) {
+          $form.removeClass('has-success').addClass('has-error');
+        }
+        else {
+          $form.removeClass('has-error').addClass('has-success');
+        }
+      };
+
+      $input.focus().keyup(function (e) {
+        if (LiskWallet.validateMnemonic($(this).val())) {
+          error(false);
+
+          if (e.keyCode === 13)
+            $btn.click();
+        }
+        else {
+          error(true);
+        }
+      });
+
+      $btn.click(function () {
+        $btn.attr('disabled', 1);
+        $my.slideUp('fast');
+        setSecret($input.val());
+        build();
+      });
+    }
+  });
 
 })(jQuery)
