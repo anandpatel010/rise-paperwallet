@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Unofficial paper wallet generator for Lisk cryptocurrency. In development.",
   "scripts": {
-    "build": "babel src -d lib && browserify lib/liskwallet.js -o www/js/liskwallet.js; rm -rf lib"
+    "build": "babel src -d lib && browserify lib/liskwallet.js -o assets/js/liskwallet.js; rm -rf lib"
   },
   "homepage": "https://github.com/rferro/liskpaperwallet",
   "bugs": "https://github.com/rferro/liskpaperwallet/issues",
