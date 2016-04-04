@@ -56,6 +56,10 @@ window.LiskWallet = function (secret) {
 window.LiskWallet.generateMnemonic = function () {
   return _bip2.default.generateMnemonic();
 };
+
+window.LiskWallet.validateMnemonic = function (mnemonic) {
+  return _bip2.default.validateMnemonic(mnemonic);
+};
 }).call(this,require("buffer").Buffer)
 },{"bip39":18,"browserify-bignum":38,"buffer":50,"crypto":59,"js-nacl":99}],2:[function(require,module,exports){
 var asn1 = exports;

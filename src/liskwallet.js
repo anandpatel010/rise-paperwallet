@@ -41,3 +41,7 @@ window.LiskWallet = (secret) => {
 window.LiskWallet.generateMnemonic = () => {
   return bip39.generateMnemonic();
 };
+
+window.LiskWallet.validateMnemonic = (mnemonic) => {
+  return bip39.validateMnemonic(mnemonic);
+};
