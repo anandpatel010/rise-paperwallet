@@ -107,7 +107,7 @@
       $('.init').fadeIn('fast');
 
       balls(
-        60 + parseInt(Math.random() * 60),
+        80 + parseInt(Math.random() * 100),
         function () {
           setSecret(LiskWallet.generateMnemonic());
         },
