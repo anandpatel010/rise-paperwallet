@@ -67,7 +67,7 @@
     $qr_secret.qrcode({ render: 'image', size: 300, text: lw.secret });
 
     $qr_address_paper.qrcode({ render: 'image', size: 160, text: lw.address });
-    $qr_secret_paper.qrcode({ render: 'image', size: 180, text: lw.secret });
+    $qr_secret_paper.qrcode({ render: 'image', size: 160, text: lw.secret });
 
     $after.fadeIn('fast');
     $before.slideUp('fast');
