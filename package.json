@@ -1,6 +1,6 @@
 {
   "name": "liskpaperwallet",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Unofficial paper wallet generator for Lisk cryptocurrency. In development.",
   "scripts": {
     "build": "babel lib/index.js -o lib/index2.js && browserify lib/index2.js -o lib/bundle.js; rm -f lib/index2.js"
