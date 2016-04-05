@@ -129,11 +129,11 @@ body {
 }
 
 .address {
-  font-size: 220%;
+  font-size: 240%;
 }
 
 .secret {
-  font-size: 170%;
+  font-size: 180%;
 }
 
 .keys {
@@ -147,7 +147,6 @@ body {
 .ms {
   font-family: Inconsolata;
   word-wrap: break-word;
-  cursor: copy;
 }
 
 .progress-bar {
