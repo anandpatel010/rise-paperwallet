@@ -1,4 +1,11 @@
 
+@media print
+{
+  .noprint, .noprint * {
+    display: none;
+  }
+}
+
 html {
   position: relative;
   min-height: 100%;
@@ -30,23 +37,66 @@ body {
   height: 30px;
 }
 
-.paper {
-  position: relative;
-  width: 600px;
-  height: 320px;
-  background-color: #ddd;
-  margin-top: 10px;
+.paper-wrapper {
+  width: 800px;
+  height: 400px;
+  margin-top: 20px;
   margin-bottom: 25px;
+}
+
+.paper {
+  position: absolute;
+  width: 800px;
+  height: 400px;
 }
 
 .paper .qr_address_paper {
   position: absolute;
-  top: 50;
-  left: 120;
+  top: 25px;
+  left: 15px;
+}
+
+.paper .qr_secret_paper {
+  position: absolute;
+  bottom: 25px;
+  right: 15px;
+}
+
+@font-face {
+  font-family: Inconsolata;
+  src: url('/assets/fonts/Inconsolata-Bold.ttf');
+  font-weight:400;
+}
+
+.address_paper, .secret_paper {
+  position: absolute;
+  width: 780px;
+  height: 20px;
+  line-height: 20px;
+  color: #000;
+  padding: 0 5px;
+  font-size: 14px;
+  font-family: Inconsolata;
+}
+
+.address_paper {
+  top:10px;
+  left:10px;
+  text-align: left;
+}
+
+.secret_paper {
+  bottom:10px;
+  left:10px;
+  text-align: right;
 }
 
 .paper h4 {
-  padding-top: 20px;
+  padding-top: 40px;
+}
+
+.print {
+  margin-bottom: 50px;
 }
 
 .mousemsg {

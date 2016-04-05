@@ -42,9 +42,8 @@
     $doc.mousemove(listener);
   }
 
-  var $secret = $('.secret');
-  var $hash = $('.hash');
-  var $address = $('.address');
+  var $secret = $('.secret').add('.secret_paper');
+  var $address = $('.address').add('.address_paper');
   var $publicKey = $('.publicKey');
   var $privateKey = $('.privateKey');
   var $after = $('.after');
@@ -52,8 +51,8 @@
 
   var $qr_address = $('.qr_address');
   var $qr_secret = $('.qr_secret');
-  var $qr_address_paper = $('.qr_address_paper div');
-  var $qr_secret_paper = $('.qr_secret_paper div');
+  var $qr_address_paper = $('.qr_address_paper');
+  var $qr_secret_paper = $('.qr_secret_paper');
 
   var secret, lw;
 
@@ -64,11 +63,11 @@
     $publicKey.text(lw.publicKey);
     $privateKey.text(lw.privateKey);
 
-    $qr_address.qrcode({ width: 300, height: 300, text: lw.address });
-    $qr_secret.qrcode({ width: 300, height: 300, text: lw.secret });
+    $qr_address.qrcode({ render: 'image', size: 300, text: lw.address });
+    $qr_secret.qrcode({ render: 'image', size: 300, text: lw.secret });
 
-    $qr_address_paper.qrcode({ width: 150, height: 150, text: lw.address });
-    $qr_secret_paper.qrcode({ width: 150, height: 150, text: lw.secret });
+    $qr_address_paper.qrcode({ render: 'image', size: 160, text: lw.address });
+    $qr_secret_paper.qrcode({ render: 'image', size: 180, text: lw.secret });
 
     $after.fadeIn('fast');
     $before.slideUp('fast');
@@ -96,6 +95,10 @@
     $secret.text(secret);
   };
 
+  $('.print button').click(function () {
+    window.print();
+  });
+
   $('.btns .btn').click(function () {
     var $this = $(this).attr('disabled', 1);
     $this.parents('.row').slideUp('fast');
@@ -104,7 +107,7 @@
       $('.init').fadeIn('fast');
 
       balls(
-        80 + parseInt(Math.random() * 80),
+        60 + parseInt(Math.random() * 60),
         function () {
           setSecret(LiskWallet.generateMnemonic());
         },
