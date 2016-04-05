@@ -64,8 +64,8 @@ body {
 
 @font-face {
   font-family: Inconsolata;
-  src: url('/assets/fonts/Inconsolata-Bold.ttf');
-  font-weight:400;
+  src: url('fonts/Inconsolata-Bold.ttf');
+  font-weight: 400;
 }
 
 .address_paper, .secret_paper {
