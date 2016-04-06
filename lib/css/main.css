@@ -7,10 +7,14 @@ html {
   min-height: 100%;
 }
 body {
-  margin-bottom: 80px;
+  margin-bottom: 150px;
 }
-.page-header h1 {
-  font-size: 280%;
+.after,
+.bar,
+.enter,
+.btns,
+.restart {
+  display: none;
 }
 .page-header h1 a {
   color: #222;
@@ -25,48 +29,43 @@ body {
   height: 80px;
   padding-top: 20px;
   background-color: #5f696e;
-  color: #ddd;
+  color: #ccc;
 }
 .hash {
   font-family: Inconsolata;
   word-wrap: break-word;
 }
-.secret,
+.passphrase,
 .address {
   text-align: center;
-  font-weight: bold;
 }
 .address {
-  font-size: 240%;
-}
-.secret {
   font-size: 180%;
+}
+.passphrase {
+  font-size: 160%;
+}
+.ppk {
+  opacity: 0.4;
 }
 .progress-bar {
   background-image: none;
   background-color: #0288d1;
 }
-.mousemsg {
+.mouse_text {
   opacity: 0.4;
 }
-.keys {
-  opacity: 0.5;
+.qr_address,
+.qr_passphrase {
+  margin: 30px 0;
 }
-.qr {
-  margin: 20px 0;
-}
-.after,
-.init,
-.my {
-  display: none;
-}
-.my input {
+.enter input {
   text-align: center;
 }
 .paper-wrapper {
   width: 800px;
   height: 400px;
-  margin-top: 20px;
+  margin-top: 25px;
   margin-bottom: 25px;
 }
 .paper-wrapper .paper {
@@ -74,21 +73,18 @@ body {
   width: 800px;
   height: 400px;
 }
-.paper-wrapper .paper h4 {
-  padding-top: 40px;
-}
 .paper-wrapper .paper .qr_address_paper {
   position: absolute;
-  top: 25px;
+  top: 45px;
   left: 15px;
 }
-.paper-wrapper .paper .qr_secret_paper {
+.paper-wrapper .paper .qr_passphrase_paper {
   position: absolute;
-  bottom: 25px;
+  bottom: 45px;
   right: 15px;
 }
-.paper-wrapper .paper .address_paper,
-.paper-wrapper .paper .secret_paper {
+.paper-wrapper .paper .address,
+.paper-wrapper .paper .passphrase {
   position: absolute;
   width: 780px;
   height: 20px;
@@ -97,14 +93,14 @@ body {
   padding: 0 5px;
   font-size: 14px;
   font-family: Inconsolata;
-  font-weight: bold;
+  white-space: nowrap;
 }
-.paper-wrapper .paper .address_paper {
+.paper-wrapper .paper .address {
   top: 10px;
   left: 10px;
   text-align: left;
 }
-.paper-wrapper .paper .secret_paper {
+.paper-wrapper .paper .passphrase {
   bottom: 10px;
   left: 10px;
   text-align: right;
@@ -115,8 +111,17 @@ body {
     display: none;
   }
 }
-.print {
-  margin-bottom: 50px;
+.ball,
+.ball2 {
+  position: absolute;
+  background-color: #0288d1;
+  width: 8px;
+  height: 8px;
+  border-radius: 20px;
+}
+.ball {
+  animation: anim 1s;
+  opacity: 0;
 }
 .ball2 {
   animation: anim2 1s;

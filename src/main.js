@@ -1,154 +1,173 @@
 
-(function ($) {
-  function balls (total, it, cb) {
-    var $doc = $(document);
-    var $body = $('body');
-    var $pb = $('.progress-bar');
+let main = () => {
+  let $btns_row = $('.btns')
+  let $btns = $btns_row.find('.btn')
 
-    var px = 0;
-    var count = 0;
+  let $restart_row = $('.restart')
+  let $restart = $restart_row.find('.btn')
 
-    var listener = function (ev) {
-      px++;
+  let $enter_row = $('.enter')
+  let $enter_text = $enter_row.find('input')
+  let $enter_btn = $enter_row.find('.btn')
 
-      if (px > 5) {
-        px = 0;
+  let $after = $('.after')
 
-        count++;
-        $pb.css('width', (count / total * 100) + '%');
+  let start = (random) => {
+    $btns_row.show()
+    $restart_row.hide()
+    $enter_row.hide()
+    $restart.removeAttr('disabled')
+    $btns.removeAttr('disabled')
+    $after.hide()
 
-        $('<div />')
-          .css('top', ev.clientY)
-          .css('left', ev.clientX)
-          .addClass('ball')
-          .appendTo($body)
-          .clone()
-          .removeClass('ball')
-          .addClass('ball2')
-          .appendTo($body)
-        ;
+    let passphrase
 
-        it();
+    let build = () => {
+      let lw = LiskWallet(passphrase)
 
-        if (count >= total) {
-          cb();
-          $doc.unbind('mousemove', listener);
-          $('.ball, .ball2').fadeOut('fast', function () { this.remove(); });
-          setTimeout(function () { $pb.parent().slideUp('fast'); }, 1);
+      $('.passphrase').text(lw.passphrase)
+      $('.address').text(lw.address)
+      $('.publicKey').text(lw.publicKey)
+      $('.privateKey').text(lw.privateKey)
+
+      $('.qr_address').empty().qrcode({ render: 'image', size: 350, text: lw.address })
+      $('.qr_passphrase').empty().qrcode({ render: 'image', size: 350, text: lw.passphrase })
+
+      $('.qr_address_paper').empty().qrcode({ render: 'image', size: 160, text: lw.address })
+      $('.qr_passphrase_paper').empty().qrcode({ render: 'image', size: 160, text: lw.passphrase })
+
+      $after.show()
+    }
+
+    $btns.unbind('click').click(function () {
+      let $this = $(this).attr('disabled', 1)
+
+      $btns_row.hide()
+
+      if ($(this).hasClass('btn_random')) {
+        balls(
+          75 + parseInt(Math.random() * 25),
+          function () {
+            passphrase = LiskWallet.generateMnemonic()
+          },
+          () => {
+            $restart_row.show()
+            build()
+          }
+        )
+      } else {
+        $restart_row.show()
+        $enter_btn.attr('disabled', 1)
+        $enter_row.show()
+
+        let $form = $enter_row.parent().removeClass('has-success has-error')
+
+        let fix = v => v.replace(/ +/g, ' ').trim().toLowerCase()
+
+        let error = function (err) {
+          $enter_btn.attr('disabled', err)
+
+          if (err) {
+            $form.removeClass('has-success').addClass('has-error')
+          }
+          else {
+            $form.removeClass('has-error').addClass('has-success')
+          }
         }
+
+        $enter_text.val('').focus().unbind('keyup').keyup(function (e) {
+          let value = fix($enter_text.val())
+
+          if (LiskWallet.validateMnemonic(value) && value.split(' ').length === 12) {
+            error(false)
+
+            if (e.keyCode === 13)
+              $enter_btn.click()
+          }
+          else {
+            error(true)
+          }
+        })
+
+        $enter_btn.unbind('click').click(function () {
+          passphrase = fix($enter_text.val())
+          $(this).attr('disabled', 1)
+          $enter_row.hide()
+          build()
+        })
       }
-    };
-
-    $doc.mousemove(listener);
+    })
   }
 
-  var $secret = $('.secret').add('.secret_paper');
-  var $address = $('.address').add('.address_paper');
-  var $publicKey = $('.publicKey');
-  var $privateKey = $('.privateKey');
-  var $after = $('.after');
-  var $before = $('.before');
+  start()
 
-  var $qr_address = $('.qr_address');
-  var $qr_secret = $('.qr_secret');
-  var $qr_address_paper = $('.qr_address_paper');
-  var $qr_secret_paper = $('.qr_secret_paper');
-
-  var secret, lw;
-
-  var build = function () {
-    lw = LiskWallet(secret);
-
-    $address.text(lw.address);
-    $publicKey.text(lw.publicKey);
-    $privateKey.text(lw.privateKey);
-
-    $qr_address.qrcode({ render: 'image', size: 350, text: lw.address });
-    $qr_secret.qrcode({ render: 'image', size: 350, text: lw.secret });
-
-    $qr_address_paper.qrcode({ render: 'image', size: 160, text: lw.address });
-    $qr_secret_paper.qrcode({ render: 'image', size: 160, text: lw.secret });
-
-    $after.fadeIn('fast');
-    $before.slideUp('fast');
-  }
-
-  var setSecret = function (data) {
-    secret = data;
-    $secret.text(secret);
-  };
-
-  $('.print button').click(function () {
-    window.print();
-  });
-
-  $('.btns .btn').click(function () {
-    var $this = $(this).attr('disabled', 1);
-    $this.parents('.row').slideUp('fast');
-
-    if ($this.hasClass('btn_random')) {
-      $('.init').fadeIn('fast');
-
-      balls(
-        5,//80 + parseInt(Math.random() * 100),
-        function () {
-          setSecret(LiskWallet.generateMnemonic());
-        },
-        build
-      );
-    }
-    else if ($this.hasClass('btn_my')) {
-      var $my = $('.my').fadeIn('fast');
-      var $form = $my.find('.form-group');
-      var $btn = $my.find('button');
-      var $input = $my.find('input');
-
-      var error = function (err) {
-        $btn.attr('disabled', err);
-
-        if (err) {
-          $form.removeClass('has-success').addClass('has-error');
-        }
-        else {
-          $form.removeClass('has-error').addClass('has-success');
-        }
-      };
-
-      $input.focus().keyup(function (e) {
-        if (LiskWallet.validateMnemonic($(this).val())) {
-          error(false);
-
-          if (e.keyCode === 13)
-            $btn.click();
-        }
-        else {
-          error(true);
-        }
-      });
-
-      $btn.click(function () {
-        $btn.attr('disabled', 1);
-        $my.slideUp('fast');
-        setSecret($input.val());
-        build();
-      });
-    }
-  });
+  $restart.click(() => {
+    $restart.attr('disabled', 1)
+    start()
+  })
 
   $('.hash').click(function () {
-    var range, selection;
+    let range, selection
 
     if (window.getSelection) {
-       selection = window.getSelection();
-       range = document.createRange();
-       range.selectNodeContents(this);
-       selection.removeAllRanges();
-       selection.addRange(range);
+       selection = window.getSelection()
+       range = document.createRange()
+       range.selectNodeContents(this)
+       selection.removeAllRanges()
+       selection.addRange(range)
     }
     else if (document.body.createTextRange) {
-       range = document.body.createTextRange();
-       range.moveToElementText(this);
-       range.select();
+       range = document.body.createTextRange()
+       range.moveToElementText(this)
+       range.select()
     }
-  });
-})(jQuery)
+  })
+
+  $('.btn-print').click(() => {
+    window.print()
+  })
+}
+
+jQuery(main)
+
+function balls (total, it, cb) {
+  let $doc = $(document)
+  let $body = $('body')
+  let $pb = $('.progress-bar').css('width', 0)
+  let $ct = $('.bar').show()
+
+  let px = 0
+  let count = 0
+
+  let listener = function (ev) {
+    px++
+
+    if (px > 5) {
+      px = 0
+
+      count++
+      $pb.css('width', (count / total * 100) + '%')
+
+      $('<div />')
+        .css('top', ev.clientY)
+        .css('left', ev.clientX)
+        .addClass('ball')
+        .appendTo($body)
+        .clone()
+        .removeClass('ball')
+        .addClass('ball2')
+        .appendTo($body)
+
+      it()
+
+      if (count >= total) {
+        cb()
+        $doc.unbind('mousemove', listener)
+        $('.ball, .ball2').fadeOut('fast', function () { this.remove() })
+        setTimeout(function () { $ct.slideUp('fast') }, 1)
+      }
+    }
+  }
+
+  $doc.mousemove(listener)
+}
