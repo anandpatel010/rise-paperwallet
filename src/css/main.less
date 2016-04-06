@@ -1,0 +1,187 @@
+
+@font-face {
+  font-family: Inconsolata;
+  src: url('../../third-party/fonts/Inconsolata-Bold.ttf');
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 80px;
+}
+
+.page-header {
+  h1 {
+    font-size: 280%;
+
+    a {
+      color: #222;
+    }
+  }
+
+  .gh-btns {
+    height: 30px;
+  }
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+  padding-top: 20px;
+  background-color: #5f696e;
+  color: #ddd;
+}
+
+.hash {
+  font-family: Inconsolata;
+  word-wrap: break-word;
+}
+
+.secret, .address {
+  text-align: center;
+  font-weight: bold;
+}
+
+.address {
+  font-size: 240%;
+}
+
+.secret {
+  font-size: 180%;
+}
+
+.progress-bar {
+  background-image: none;
+  background-color: #0288d1;
+}
+
+.mousemsg {
+  opacity: 0.4;
+}
+
+.keys {
+  opacity: 0.5;
+}
+
+.qr {
+  margin: 20px 0;
+}
+
+.after, .init, .my {
+  display: none;
+}
+
+.my {
+  input {
+    text-align: center;
+  }
+}
+
+.paper-wrapper {
+  @width: 800px;
+  @height: 400px;
+
+  width: @width;
+  height: @height;
+  margin-top: 20px;
+  margin-bottom: 25px;
+
+  .paper {
+    position: absolute;
+    width: @width;
+    height: @height;
+
+    h4 {
+      padding-top: 40px;
+    }
+
+    .qr_address_paper {
+      position: absolute;
+      top: 25px;
+      left: 15px;
+    }
+
+    .qr_secret_paper {
+      position: absolute;
+      bottom: 25px;
+      right: 15px;
+    }
+
+    .address_paper, .secret_paper {
+      position: absolute;
+      width: 780px;
+      height: 20px;
+      line-height: 20px;
+      color: #000;
+      padding: 0 5px;
+      font-size: 14px;
+      font-family: Inconsolata;
+      font-weight: bold;
+    }
+
+    .address_paper {
+      top:10px;
+      left:10px;
+      text-align: left;
+    }
+
+    .secret_paper {
+      bottom:10px;
+      left:10px;
+      text-align: right;
+    }
+  }
+}
+
+@media print
+{
+  .noprint, .noprint * {
+    display: none;
+  }
+}
+
+.print {
+  margin-bottom: 50px;
+}
+.ball2 {
+  animation: anim2 1s;
+  opacity: 0.1;
+}
+
+@keyframes anim
+{
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    top: -10px;
+    left: 50%;
+  }
+}
+
+@keyframes anim2
+{
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
+
+.pulsate {
+  -webkit-animation: pulsate 0.8s ease-out;
+  -webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes pulsate {
+    0% { opacity: 0.4; }
+    50% { opacity: 1.0; }
+    100% { opacity: 0.4; }
+}

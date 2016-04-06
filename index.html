@@ -10,7 +10,7 @@
 
     <link rel="stylesheet" href="third-party/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="third-party/bootstrap/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="lib/css/main.css">
 
     <!--[if lt IE 9]>
       <script src="js/html5shiv.min.js"></script>
@@ -42,8 +42,8 @@
           </div>
         </div>
       </div>
-      <div class="row noprint btns">
-        <div class="col-md-12 text-center">
+      <div class="row noprint">
+        <div class="col-md-12 text-center btns">
           <p>
             <button type="button" class="btn btn-default btn_random">Generate random wallet</button>
             <button type="button" class="btn btn-default btn_my">Enter my passphrase</button>
@@ -72,7 +72,7 @@
             <div class="panel-heading">
               <h3 class="panel-title text-center">Your Lisk Address: (SHARE)</h3>
             </div>
-            <div class="panel-body ms address">
+            <div class="panel-body hash address">
             </div>
           </div>
         </div>
@@ -83,7 +83,7 @@
             <div class="panel-heading">
               <h3 class="panel-title text-center">Your Passphrase: (SECRET)</h3>
             </div>
-            <div class="panel-body ms secret">
+            <div class="panel-body hash secret">
             </div>
           </div>
         </div>
@@ -91,8 +91,8 @@
       <div class="row noprint after">
         <div class="col-md-12 keys">
           <ul class="list-group">
-            <li class="list-group-item"><span class="badge">Public Key</span><span class="ms publicKey"></span></li>
-            <li class="list-group-item"><span class="badge">Private Key</span><span class="ms privateKey"></span></li>
+            <li class="list-group-item"><span class="badge">Public Key</span><span class="hash publicKey"></span></li>
+            <li class="list-group-item"><span class="badge">Private Key</span><span class="hash privateKey"></span></li>
           </ul>
         </div>
       </div>
@@ -137,7 +137,7 @@
           </div>
           <div>
             <small>
-              Donations: <span class="ms">14215973503206850735L</span> (LISK) <span class="ms">1Ciuy8quwojLQKhdBFL46CQ8nc5vSkbKhP</span> (BTC)
+              Donations: <span class="hash">14215973503206850735L</span> (LISK) <span class="hash">1Ciuy8quwojLQKhdBFL46CQ8nc5vSkbKhP</span> (BTC)
             </small>
           </div>
         </div>
@@ -147,7 +147,7 @@
     <script src="third-party/jquery.min.js"></script>
     <script src="third-party/bootstrap/bootstrap.min.js"></script>
     <script src="third-party/jquery.qrcode.min.js"></script>
-    <script src="lib/bundle.js"></script>
+    <script src="lib/index.js"></script>
     <script src="lib/main.js"></script>
     <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
     <script>

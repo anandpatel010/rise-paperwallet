@@ -1,7 +1,6 @@
-'use strict';
 
 (function ($) {
-  function balls(total, it, cb) {
+  function balls (total, it, cb) {
     var $doc = $(document);
     var $body = $('body');
     var $pb = $('.progress-bar');
@@ -9,28 +8,33 @@
     var px = 0;
     var count = 0;
 
-    var listener = function listener(ev) {
+    var listener = function (ev) {
       px++;
 
       if (px > 5) {
         px = 0;
 
         count++;
-        $pb.css('width', count / total * 100 + '%');
+        $pb.css('width', (count / total * 100) + '%');
 
-        $('<div />').css('top', ev.clientY).css('left', ev.clientX).addClass('ball').appendTo($body).clone().removeClass('ball').addClass('ball2').appendTo($body);
+        $('<div />')
+          .css('top', ev.clientY)
+          .css('left', ev.clientX)
+          .addClass('ball')
+          .appendTo($body)
+          .clone()
+          .removeClass('ball')
+          .addClass('ball2')
+          .appendTo($body)
+        ;
 
         it();
 
         if (count >= total) {
           cb();
           $doc.unbind('mousemove', listener);
-          $('.ball, .ball2').fadeOut('fast', function () {
-            this.remove();
-          });
-          setTimeout(function () {
-            $pb.parent().slideUp('fast');
-          }, 1);
+          $('.ball, .ball2').fadeOut('fast', function () { this.remove(); });
+          setTimeout(function () { $pb.parent().slideUp('fast'); }, 1);
         }
       }
     };
@@ -52,7 +56,7 @@
 
   var secret, lw;
 
-  var build = function build() {
+  var build = function () {
     lw = LiskWallet(secret);
 
     $address.text(lw.address);
@@ -72,20 +76,21 @@
       var range, selection;
 
       if (window.getSelection) {
-        selection = window.getSelection();
-        range = document.createRange();
-        range.selectNodeContents(this);
-        selection.removeAllRanges();
-        selection.addRange(range);
-      } else if (document.body.createTextRange) {
-        range = document.body.createTextRange();
-        range.moveToElementText(this);
-        range.select();
+         selection = window.getSelection();
+         range = document.createRange();
+         range.selectNodeContents(this);
+         selection.removeAllRanges();
+         selection.addRange(range);
+      }
+      else if (document.body.createTextRange) {
+         range = document.body.createTextRange();
+         range.moveToElementText(this);
+         range.select();
       }
     });
-  };
+  }
 
-  var setSecret = function setSecret(data) {
+  var setSecret = function (data) {
     secret = data;
     $secret.text(secret);
   };
@@ -101,22 +106,27 @@
     if ($this.hasClass('btn_random')) {
       $('.init').fadeIn('fast');
 
-      balls(5, //80 + parseInt(Math.random() * 100),
-      function () {
-        setSecret(LiskWallet.generateMnemonic());
-      }, build);
-    } else if ($this.hasClass('btn_my')) {
+      balls(
+        5,//80 + parseInt(Math.random() * 100),
+        function () {
+          setSecret(LiskWallet.generateMnemonic());
+        },
+        build
+      );
+    }
+    else if ($this.hasClass('btn_my')) {
       var $my = $('.my').fadeIn('fast');
       var $form = $my.find('.form-group');
       var $btn = $my.find('button');
       var $input = $my.find('input');
 
-      var error = function error(err) {
+      var error = function (err) {
         $btn.attr('disabled', err);
 
         if (err) {
           $form.removeClass('has-success').addClass('has-error');
-        } else {
+        }
+        else {
           $form.removeClass('has-error').addClass('has-success');
         }
       };
@@ -125,8 +135,10 @@
         if (LiskWallet.validateMnemonic($(this).val())) {
           error(false);
 
-          if (e.keyCode === 13) $btn.click();
-        } else {
+          if (e.keyCode === 13)
+            $btn.click();
+        }
+        else {
           error(true);
         }
       });
@@ -139,4 +151,5 @@
       });
     }
   });
-})(jQuery);
+
+})(jQuery)
