@@ -7,12 +7,12 @@ import bignum from 'browserify-bignum';
 
 let nacl = nacl_factory.instantiate();
 
-window.LiskWallet = (secret) => {
-  if (!secret) {
-    secret = bip39.generateMnemonic();
+window.LiskWallet = (passphrase) => {
+  if (!passphrase) {
+    passphrase = bip39.generateMnemonic();
   }
 
-  let hash = crypto.createHash('sha256').update(secret, 'utf8').digest();
+  let hash = crypto.createHash('sha256').update(passphrase, 'utf8').digest();
 
   let kp = nacl.crypto_sign_keypair_from_seed(hash);
   let publicKey  = new Buffer(kp.signPk);
@@ -30,7 +30,7 @@ window.LiskWallet = (secret) => {
   }
 
   return {
-    secret,
+    passphrase,
     hash: hash.toString('hex'),
     address: getAddress(publicKey),
     publicKey: publicKey.toString('hex'),
