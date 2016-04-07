@@ -1,9 +1,13 @@
 
+<img align="right" src="https://cdn.rawgit.com/feross/standard/master/badge.svg">
+
 # liskpaperwallet.com
 
 Unofficial paper wallet generator for Lisk cryptocurrency. In development.
 
-[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
+
+
+
 
 ## License
 
