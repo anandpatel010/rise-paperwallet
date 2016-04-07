@@ -145,8 +145,8 @@ function balls (total, it, cb) {
       if (count >= total) {
         cb()
         $doc.unbind('mousemove', listener)
-        $('.ball, .ball2').fadeOut('fast', function () { this.remove() })
-        setTimeout(function () { $ct.slideUp('fast') }, 1)
+        $('.ball, .ball2').hide().remove()
+        $ct.hide()
       }
     }
   }
