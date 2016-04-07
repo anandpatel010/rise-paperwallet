@@ -20,6 +20,7 @@ let main = () => {
       $('.address').text(lw.address)
       $('.publicKey').text(lw.publicKey)
       $('.privateKey').text(lw.privateKey)
+      $('.passphraseHash').text(lw.hash)
 
       $('.qr_address').empty().qrcode({ render: 'image', size: 350, text: lw.address })
       $('.qr_passphrase').empty().qrcode({ render: 'image', size: 350, text: lw.passphrase })
