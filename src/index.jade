@@ -1,0 +1,115 @@
+doctype html
+html.no-js
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+    title liskpaperwallet.com
+    meta(name='description', content='Paper wallet generator for Lisk cryptocurrency.')
+    meta(name='keywords', content='lisk,paperwallet,paper,wallet,cryptocurrency,lisk.io,crypti')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+
+    link(rel='stylesheet', href='third-party/bootstrap/bootstrap.min.css')
+    link(rel='stylesheet', href='third-party/bootstrap/bootstrap-theme.min.css')
+    link(rel='stylesheet', href='lib/style.css')
+  body
+    .container-fluid
+      .row.noprint
+        .col-md-12
+          .page-header.text-center
+            h1: a(href='index.html') Lisk Paper Wallet
+            h5
+              = "Unofficial paper wallet generator for "
+              a(href='http://lisk.io', target='blank') Lisk
+              = " cryptocurrency. In development."
+            h5
+              = "Hosted by Github Pages. Source code is available "
+              a(href='https://github.com/rferro/liskpaperwallet/tree/gh-pages', target='blank') here
+              = "."
+            .gh-btns
+              a.github-button(href='https://github.com/rferro/liskpaperwallet', data-icon='octicon-eye', data-style='mega', data-count-href='/rferro/liskpaperwallet/watchers', data-count-api='/repos/rferro/liskpaperwallet#subscribers_count', data-count-aria-label='# watchers on GitHub', aria-label='Watch rferro/liskpaperwallet on GitHub') Watch
+              a.github-button(href='https://github.com/rferro/liskpaperwallet', data-icon='octicon-star', data-style='mega', data-count-href='/rferro/liskpaperwallet/stargazers', data-count-api='/repos/rferro/liskpaperwallet#stargazers_count', data-count-aria-label='# stargazers on GitHub', aria-label='Star rferro/liskpaperwallet on GitHub') Star
+              a.github-button(href='https://github.com/rferro/liskpaperwallet/fork', data-icon='octicon-repo-forked', data-style='mega', data-count-href='/rferro/liskpaperwallet/network', data-count-api='/repos/rferro/liskpaperwallet#forks_count', data-count-aria-label='# forks on GitHub', aria-label='Fork rferro/liskpaperwallet on GitHub') Fork
+              a.github-button(href='https://github.com/rferro/liskpaperwallet/issues', data-icon='octicon-issue-opened', data-style='mega', data-count-api='/repos/rferro/liskpaperwallet#open_issues_count', data-count-aria-label='# issues on GitHub', aria-label='Issue rferro/liskpaperwallet on GitHub') Issue
+              a.github-button(href='https://github.com/rferro/liskpaperwallet/archive/master.zip', data-icon='octicon-cloud-download', data-style='mega', aria-label='Download rferro/liskpaperwallet on GitHub') Download
+      .row.noprint
+        .col-md-12.text-center
+          .alert.alert-warning
+            strong= "We recommended use this tool offline: "
+            a.alert-link(href='https://github.com/rferro/liskpaperwallet/archive/master.zip') download
+            = " the source code and open index.html in your browser without internet access."
+      .row.noprint.restart
+        .col-md-12.text-center
+          p: button.btn.btn-info(type='button') Back
+      .row.noprint.btns
+        .col-md-12.text-center
+          button.btn.btn-default.btn_random(type='button') Create a random wallet
+          = " or "
+          button.btn.btn-default.btn_my(type='button') enter your passphrase
+      .row.noprint.enter
+        .col-md-12.text-center
+          .form-group: input.form-control(type='text', placeholder='enter your passphrase here')
+          button.btn.btn-default Generate
+      .row.noprint.bar
+        .col-md-12
+          h3.text-center.before.mouse_text.pulsate Move your mouse to generate a random wallet
+          .progress: .progress-bar.active
+      .row.noprint.after
+        .col-md-12
+          .panel.panel-success
+            .panel-heading: h3.panel-title.text-center Your Lisk Address: (SHARE)
+            .panel-body.hash.address
+      .row.noprint.after
+        .col-md-12
+          .panel.panel-danger
+            .panel-heading: h3.panel-title.text-center Your Passphrase: (SECRET! KEEP SAFE!)
+            .panel-body.hash.passphrase
+      .row.noprint.after.ppk
+        .col-md-12
+          ul.list-group
+            li.list-group-item
+              span.badge Public Key
+              span.hash.publicKey
+            li.list-group-item
+              span.badge Private Key
+              span.hash.privateKey
+      .row.noprint.after
+        .col-md-6.text-center
+          h3 Lisk Address (SHARE)
+          .qr_address
+        .col-md-6.text-center
+          h3 Passphrase (SECRET)
+          .qr_passphrase
+      .row.after
+        .col-md-12.text-center
+          h2.noprint Paper Wallet
+          h5.noprint Final wallet's design coming soon!
+          .paper-wrapper.center-block: .paper
+            img(src='images/wallet_art1.png')
+            .qr_address_paper
+            .qr_passphrase_paper
+            .address
+            .passphrase
+      .row.noprint.after
+        .col-md-12.text-center: button.btn.btn-lg.btn-success.btn-print(type='button') Print Paper Wallet
+    .footer.noprint
+      .container
+        .text-center
+          div liskpaperwallet.com v0.1.0
+          div
+              = "Donations: "
+              span.hash 14215973503206850735L
+              = " (LISK) "
+              span.hash 1Ciuy8quwojLQKhdBFL46CQ8nc5vSkbKhP
+              = " (BTC)"
+    script(src='third-party/jquery.min.js')
+    script(src='third-party/jquery.qrcode.min.js')
+    script(src='lib/index.js')
+    script(src='lib/main.js')
+    script#github-bjs(async, defer, src='https://buttons.github.io/buttons.js')
+    script.
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-75892665-1', 'auto');
+      ga('send', 'pageview');
