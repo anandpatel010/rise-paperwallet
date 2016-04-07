@@ -1,7 +1,7 @@
 
 @font-face {
   font-family: Inconsolata;
-  src: url('../../third-party/fonts/Inconsolata-Bold.ttf');
+  src: url('../third-party/fonts/Inconsolata-Bold.ttf');
 }
 
 html {
@@ -15,6 +15,10 @@ body {
 
 .after, .bar, .enter, .btns, .restart {
   display: none;
+}
+
+.btns {
+  margin-bottom: 50px;
 }
 
 .page-header {
@@ -92,6 +96,7 @@ body {
   height: @height;
   margin-top: 25px;
   margin-bottom: 25px;
+  cursor: default;
 
   .paper {
     position: absolute;

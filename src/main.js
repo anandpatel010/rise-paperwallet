@@ -1,23 +1,14 @@
 
 let main = () => {
-  let $btns_row = $('.btns')
+  let $btns_row = $('.btns').show()
   let $btns = $btns_row.find('.btn')
-
-  let $restart_row = $('.restart')
-  let $restart = $restart_row.find('.btn')
-
   let $enter_row = $('.enter')
   let $enter_text = $enter_row.find('input')
   let $enter_btn = $enter_row.find('.btn')
-
   let $after = $('.after')
 
-  let start = (random) => {
-    $btns_row.show()
-    $restart_row.hide()
+  let start = function () {
     $enter_row.hide()
-    $restart.removeAttr('disabled')
-    $btns.removeAttr('disabled')
     $after.hide()
 
     let passphrase
@@ -39,72 +30,62 @@ let main = () => {
       $after.show()
     }
 
-    $btns.unbind('click').click(function () {
-      let $this = $(this).attr('disabled', 1)
-
+    if ($(this).hasClass('btn_random')) {
       $btns_row.hide()
 
-      if ($(this).hasClass('btn_random')) {
-        balls(
-          75 + parseInt(Math.random() * 25),
-          function () {
-            passphrase = LiskWallet.generateMnemonic()
-          },
-          () => {
-            $restart_row.show()
-            build()
-          }
-        )
-      } else {
-        $restart_row.show()
-        $enter_btn.attr('disabled', 1)
-        $enter_row.show()
-
-        let $form = $enter_row.parent().removeClass('has-success has-error')
-
-        let fix = v => v.replace(/ +/g, ' ').trim().toLowerCase()
-
-        let error = function (err) {
-          $enter_btn.attr('disabled', err)
-
-          if (err) {
-            $form.removeClass('has-success').addClass('has-error')
-          }
-          else {
-            $form.removeClass('has-error').addClass('has-success')
-          }
-        }
-
-        $enter_text.val('').focus().unbind('keyup').keyup(function (e) {
-          let value = fix($enter_text.val())
-
-          if (LiskWallet.validateMnemonic(value) && value.split(' ').length === 12) {
-            error(false)
-
-            if (e.keyCode === 13)
-              $enter_btn.click()
-          }
-          else {
-            error(true)
-          }
-        })
-
-        $enter_btn.unbind('click').click(function () {
-          passphrase = fix($enter_text.val())
-          $(this).attr('disabled', 1)
-          $enter_row.hide()
+      balls(
+        75 + parseInt(Math.random() * 25),
+        function () {
+          passphrase = LiskWallet.generateMnemonic()
+        },
+        () => {
+          $btns_row.show()
           build()
-        })
+        }
+      )
+    } else {
+      $enter_btn.attr('disabled', 1)
+      $enter_row.show()
+
+      let $form = $enter_row.parent().removeClass('has-success has-error')
+
+      let fix = v => v.replace(/ +/g, ' ').trim().toLowerCase()
+
+      let error = function (err) {
+        $enter_btn.attr('disabled', err)
+
+        if (err) {
+          $form.removeClass('has-success').addClass('has-error')
+        }
+        else {
+          $form.removeClass('has-error').addClass('has-success')
+        }
       }
-    })
+
+      $enter_text.val('').focus().unbind('keyup').keyup(function (e) {
+        let value = fix($enter_text.val())
+
+        if (value.split(' ').length === 12 || LiskWallet.validateMnemonic(value)) {
+          error(false)
+
+          if (e.keyCode === 13)
+            $enter_btn.click()
+        }
+        else {
+          error(true)
+        }
+      })
+
+      $enter_btn.unbind('click').click(function () {
+        passphrase = fix($enter_text.val())
+        $(this).attr('disabled', 1)
+        $enter_row.hide()
+        build()
+      })
+    }
   }
 
-  start()
-
-  $restart.click(() => {
-    $restart.attr('disabled', 1)
-    start()
-  })
+  $btns.click(start)
 
   $('.hash').click(function () {
     let range, selection

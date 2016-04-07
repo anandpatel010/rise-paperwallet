@@ -37,18 +37,15 @@ html.no-js
             strong= "We recommended use this tool offline: "
             a.alert-link(href='https://github.com/rferro/liskpaperwallet/archive/master.zip') download
             = " the source code and open index.html in your browser without internet access."
-      .row.noprint.restart
-        .col-md-12.text-center
-          p: button.btn.btn-info(type='button') Back
       .row.noprint.btns
         .col-md-12.text-center
-          button.btn.btn-default.btn_random(type='button') Create a random wallet
+          button.btn.btn-default.btn-lg.btn_random(type='button') Create a random wallet
           = " or "
-          button.btn.btn-default.btn_my(type='button') enter your passphrase
+          button.btn.btn-default.btn-lg(type='button') enter your passphrase
       .row.noprint.enter
         .col-md-12.text-center
-          .form-group: input.form-control(type='text', placeholder='enter your passphrase here')
-          button.btn.btn-default Generate
+          .form-group: input.form-control.input-lg(type='text', placeholder='enter your passphrase here')
+          button.btn.btn-default.btn-lg Generate
       .row.noprint.bar
         .col-md-12
           h3.text-center.before.mouse_text.pulsate Move your mouse to generate a random wallet
@@ -57,12 +54,14 @@ html.no-js
         .col-md-12
           .panel.panel-success
             .panel-heading: h3.panel-title.text-center Your Lisk Address: (SHARE)
-            .panel-body.hash.address
+            .panel-body.text-center
+              span#address.hash.address
       .row.noprint.after
         .col-md-12
           .panel.panel-danger
             .panel-heading: h3.panel-title.text-center Your Passphrase: (SECRET! KEEP SAFE!)
-            .panel-body.hash.passphrase
+            .panel-body.text-center
+              span#passphrase.hash.passphrase
       .row.noprint.after.ppk
         .col-md-12
           ul.list-group
@@ -103,6 +102,7 @@ html.no-js
               = " (BTC)"
     script(src='third-party/jquery.min.js')
     script(src='third-party/jquery.qrcode.min.js')
+    //- script(src='third-party/bootstrap/bootstrap.min.js')
     script(src='lib/index.js')
     script(src='lib/main.js')
     script#github-bjs(async, defer, src='https://buttons.github.io/buttons.js')

@@ -16,6 +16,9 @@ body {
 .restart {
   display: none;
 }
+.btns {
+  margin-bottom: 50px;
+}
 .page-header h1 a {
   color: #222;
 }
@@ -35,7 +38,7 @@ body {
   color: #ccc;
 }
 .hash {
-  font-family: Inconsolata, monospace;
+  font-family: Inconsolata;
   word-wrap: break-word;
   font-weight: bold;
 }
@@ -71,6 +74,7 @@ body {
   height: 400px;
   margin-top: 25px;
   margin-bottom: 25px;
+  cursor: default;
 }
 .paper-wrapper .paper {
   position: absolute;
@@ -96,7 +100,7 @@ body {
   color: #000;
   padding: 0 5px;
   font-size: 14px;
-  font-family: Inconsolata, monospace;
+  font-family: Inconsolata;
   white-space: nowrap;
 }
 .paper-wrapper .paper .address {
