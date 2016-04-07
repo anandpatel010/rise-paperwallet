@@ -1,4 +1,4 @@
-
+a()
 import crypto from 'crypto'
 
 import bip39 from 'bip39'

@@ -8,7 +8,7 @@ import jade from 'gulp-jade'
 
 gulp.task('babel', () => {
   gulp
-    .src(['src/**/*.js', '!src/index.js'])
+    .src(['src/**/*.js', '!src/liskwallet.js'])
     .pipe(watch('src/**/*.js', { verbose: true }))
     .pipe(babel({ presets: ['es2015'] }))
     .pipe(gulp.dest('lib'))
@@ -32,8 +32,8 @@ gulp.task('jade', () => {
 
 gulp.task('bundle', () => {
   gulp
-    .src('src/index.js')
-    .pipe(watch('src/index.js', { verbose: true }))
+    .src('src/liskwallet.js')
+    .pipe(watch('src/liskwallet.js', { verbose: true }))
     .pipe(babel({ presets: ['es2015'] }))
     .pipe(gulpBrowser.browserify())
     .pipe(gulp.dest('lib'))
