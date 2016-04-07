@@ -5,10 +5,6 @@
 
 Unofficial paper wallet generator for Lisk cryptocurrency. In development.
 
-
-
-
-
 ## License
 
 ```
