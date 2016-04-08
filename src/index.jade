@@ -16,7 +16,10 @@ html.no-js
       .row.noprint
         .col-md-12
           .page-header.text-center
-            h1: a(href='index.html') Lisk Paper Wallet
+            h1
+              a(href='index.html') Lisk Paper Wallet
+              = " "
+              small v0.1.2
             h5
               = "Unofficial paper wallet generator for "
               a(href='http://lisk.io', target='blank') Lisk
@@ -99,16 +102,6 @@ html.no-js
             .passphrase
       .row.noprint.after
         .col-md-12.text-center: button.btn.btn-lg.btn-success.btn-print(type='button') Print Paper Wallet
-    .footer.noprint
-      .container
-        .text-center
-          div liskpaperwallet.com v0.1.2
-          div
-              = "Donations: "
-              span.hash 14215973503206850735L
-              = " (LISK) "
-              span.hash 1Ciuy8quwojLQKhdBFL46CQ8nc5vSkbKhP
-              = " (BTC)"
     script(src='third-party/jquery.min.js')
     script(src='third-party/jquery.qrcode.min.js')
     //- script(src='third-party/bootstrap/bootstrap.min.js')
