@@ -1,6 +1,8 @@
 
 @font-face {
-  font-family: Inconsolata;
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: 400;
   src: url('../third-party/fonts/Inconsolata-Bold.ttf');
 }
 
@@ -19,6 +21,11 @@ body {
 
 .btns {
   margin-bottom: 30px;
+
+  span.or {
+    font-size: 140%;
+    padding: 0 10px;
+  }
 }
 
 .page-header {
@@ -50,7 +57,6 @@ body {
 .hash {
   font-family: Inconsolata;
   word-wrap: break-word;
-  font-weight: bold;
 }
 
 .passphrase, .address {
@@ -89,8 +95,8 @@ body {
 }
 
 .paper-wrapper {
-  @width: 800px;
-  @height: 400px;
+  @width: 780px;
+  @height: 360px;
 
   width: @width;
   height: @height;
@@ -103,28 +109,30 @@ body {
     width: @width;
     height: @height;
 
-    .qr_address_paper {
+    .qr {
       position: absolute;
-      top: 45px;
-      left: 15px;
-    }
 
-    .qr_passphrase_paper {
-      position: absolute;
-      bottom: 45px;
-      right: 15px;
+      &.qr_address_paper {
+        top: 45px;
+        left: 15px;
+      }
+
+      &.qr_passphrase_paper {
+        bottom: 45px;
+        right: 15px;
+      }
     }
 
     .address, .passphrase {
       position: absolute;
-      width: 780px;
+      width: 760px;
       height: 20px;
       line-height: 20px;
-      color: #000;
       padding: 0 5px;
       font-size: 14px;
       font-family: Inconsolata;
       white-space: nowrap;
+      color: #000;
     }
 
     .address {
@@ -145,6 +153,10 @@ body {
 {
   .noprint, .noprint * {
     display: none;
+  }
+
+  * {
+    color:red;
   }
 }
 
