@@ -35,7 +35,7 @@ let main = () => {
       $btns_row.hide()
 
       balls(
-        window.location.protocol === 'file:' ? 5 : 75 + parseInt(Math.random() * 25),
+        window.location.protocol === 'file:' ? 15 : 75 + parseInt(Math.random() * 25),
         function () {
           passphrase = LiskWallet.generateMnemonic()
         },
@@ -131,7 +131,7 @@ function balls (total, it, cb) {
   let listener = function (ev) {
     px++
 
-    if (px > 5) {
+    if (px > 10) {
       px = 0
 
       count++
@@ -140,12 +140,12 @@ function balls (total, it, cb) {
       $('<div />')
         .css('top', ev.clientY)
         .css('left', ev.clientX)
-        .addClass('ball')
-        .appendTo($body)
-        .clone()
-        .removeClass('ball')
         .addClass('ball2')
         .appendTo($body)
+        // .clone()
+        // .removeClass('ball')
+        // .addClass('ball2')
+        // .appendTo($body)
 
       it()
 
