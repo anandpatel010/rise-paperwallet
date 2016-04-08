@@ -66,14 +66,14 @@ let main = () => {
       $enter_text.val('').focus().unbind('keyup').keyup(function (e) {
         let value = fix($enter_text.val())
 
-        if (value.split(' ').length === 12 || LiskWallet.validateMnemonic(value)) {
+        if (value.split(' ').length !== 12 || !LiskWallet.validateMnemonic(value)) {
+          error(true)
+        }
+        else {
           error(false)
 
           if (e.keyCode === 13)
             $enter_btn.click()
-        }
-        else {
-          error(true)
         }
       })
 
