@@ -25,8 +25,8 @@ let main = () => {
       $('.qr_address').empty().qrcode({ render: 'image', size: 350, text: lw.address })
       $('.qr_passphrase').empty().qrcode({ render: 'image', size: 350, text: lw.passphrase })
 
-      $('.qr_address_paper').empty().qrcode({ render: 'image', size: 160, text: lw.address })
-      $('.qr_passphrase_paper').empty().qrcode({ render: 'image', size: 160, text: lw.passphrase })
+      $('.qr_address_paper').empty().qrcode({ render: 'image', size: 150, text: lw.address })
+      $('.qr_passphrase_paper').empty().qrcode({ render: 'image', size: 150, text: lw.passphrase })
 
       $after.show()
     }
@@ -35,7 +35,7 @@ let main = () => {
       $btns_row.hide()
 
       balls(
-        75 + parseInt(Math.random() * 25),
+        window.location.protocol === 'file:' ? 5 : 75 + parseInt(Math.random() * 25),
         function () {
           passphrase = LiskWallet.generateMnemonic()
         },
@@ -108,6 +108,13 @@ let main = () => {
   $('.btn-print').click(() => {
     window.print()
   })
+
+  // $('.papers').find('.btn').click(function () {
+  //   let $this = $(this)
+  //
+  //   $this.parent().find('.btn').removeClass('active')
+  //   $this.addClass('active')
+  // })
 }
 
 jQuery(main)
