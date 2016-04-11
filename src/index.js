@@ -1,4 +1,86 @@
 
+let arts = {
+  'base': {
+    image: '01',
+    width: 780,
+    height: 360,
+    address: {
+      qr: {
+        size: 150,
+        top: 45,
+        left: 15
+      },
+      text: {
+        width: 760,
+        height: 20,
+        lineHeight: '20px',
+        padding: '0 5px',
+        fontSize: 16,
+        fontFamily: 'Inconsolata',
+        top: 10,
+        left: 10,
+        textAlign: 'left'
+      },
+      label: {
+        hide: false,
+        top: 205,
+        left: 10,
+        lineHeight: '26px',
+        fontSize: 22,
+        fontFamily: 'Inconsolata',
+        textShadow: '1px 1px 1px rgba(0, 0, 0, 0.3)'
+      }
+    },
+    passphrase: {
+      qr: {
+        size: 150,
+        bottom: 45,
+        right: 15
+      },
+      text: {
+        width: 760,
+        height: 20,
+        lineHeight: '20px',
+        padding: '0 5px',
+        fontSize: 14,
+        fontFamily: 'Inconsolata',
+        bottom: 10,
+        left: 10,
+        textAlign: 'right'
+      },
+      label: {
+        hide: false,
+        bottom: 205,
+        right: 10,
+        lineHeight: '26px',
+        fontSize: 22,
+        fontFamily: 'Inconsolata',
+        textShadow: '1px 1px 1px rgba(0, 0, 0, 0.3)'
+      }
+    },
+    amount: {
+      label: {
+        top: 40,
+        left: 300,
+        height: 30,
+        lineHeight: '30px',
+        paddingLeft: 8,
+        fontSize: 14,
+        fontFamily: 'Inconsolata',
+        textShadow: '1px 1px 1px rgba(0, 0, 0, 0.3)'
+      }
+    }
+  },
+  '01': {
+    extend: 'base',
+    image: '01'
+  },
+  '02': {
+    extend: 'base',
+    image: '02'
+  }
+}
+
 let main = () => {
   let $btns_row = $('.btns').show()
   let $btns = $btns_row.find('.btn')
@@ -25,9 +107,84 @@ let main = () => {
       $('.qr_address').empty().qrcode({ render: 'image', size: 350, text: lw.address })
       $('.qr_passphrase').empty().qrcode({ render: 'image', size: 350, text: lw.passphrase })
 
-      $('.qr_address_paper').empty().qrcode({ render: 'image', size: 150, text: lw.address })
-      $('.qr_passphrase_paper').empty().qrcode({ render: 'image', size: 150, text: lw.passphrase })
+      $('.papers .show-amount').prop('checked', false)
+      $('.papers .btn-group button').remove()
+      $('.amount_label').hide()
 
+      for (let id in arts) {
+        if (id === 'base') {
+          continue
+        }
+
+        let extendArt = (id) => {
+          if (id === 'base') {
+            return arts[id]
+          }
+
+          if (!arts[id]) {
+            return {}
+          }
+
+          return $.extend(true, {}, extendArt(arts[id].extend), arts[id])
+        }
+
+        $('<button>')
+          .attr('type', 'button')
+          .text(id)
+          .addClass('btn btn-default')
+          .click(function () {
+            $(this).parent().find('.btn').removeClass('active btn-primary')
+            $(this).addClass('active btn-primary')
+
+            let art = extendArt(id)
+            let amount = $('.show-amount').is(':checked') ? 'a' : ''
+
+            $('.paper img').attr('src', `images/${art.image}${amount}.png`)
+
+            $('.paper-wrapper, .paper').css({
+              width: art.width,
+              height: art.height
+            })
+
+            $('.qr_address_paper')
+              .empty()
+              .css(art.address.qr)
+              .qrcode({
+                render: 'image',
+                size: art.address.qr.size,
+                text: lw.address
+              })
+
+            $('.qr_passphrase_paper')
+              .empty()
+              .css(art.passphrase.qr)
+              .qrcode({
+                render: 'image',
+                size: art.passphrase.qr.size,
+                text: lw.passphrase
+              })
+
+            $('.paper .address').css(art.address.text)
+            $('.paper .passphrase').css(art.passphrase.text)
+
+            if (art.address.label.hide) {
+              $('.paper .address_label').hide()
+            } else {
+              $('.paper .address_label').css(art.address.label).show()
+            }
+
+            if (art.passphrase.label.hide) {
+              $('.paper .passphrase_label').hide()
+            } else {
+              $('.paper .passphrase_label').css(art.passphrase.label).show()
+            }
+
+            $('.paper .amount_label').css(art.amount.label)
+          })
+          .appendTo($('.papers .btn-group'))
+      }
+
+      $('.papers .btn-group button:first').click()
       $after.show()
     }
 
@@ -35,7 +192,7 @@ let main = () => {
       $btns_row.hide()
 
       balls(
-        window.location.protocol === 'file:' ? 15 : 75 + parseInt(Math.random() * 25),
+        window.location.protocol === 'filae:' ? 10 : 75 + parseInt(Math.random() * 25),
         function () {
           passphrase = LiskWallet.generateMnemonic()
         },
@@ -109,12 +266,27 @@ let main = () => {
     window.print()
   })
 
-  // $('.papers').find('.btn').click(function () {
-  //   let $this = $(this)
-  //
-  //   $this.parent().find('.btn').removeClass('active')
-  //   $this.addClass('active')
-  // })
+  $('.papers').find('.btn').click(function () {
+    let $this = $(this)
+
+    $this.parent().find('.btn').removeClass('active')
+    $this.addClass('active')
+  })
+
+  $('.papers .show-amount')
+    .change(function () {
+      let $cb = $(this)
+
+      $('.paper img').each(function () {
+        if ($cb.is(':checked')) {
+          $(this).attr('src', $(this).attr('src').replace(/\.(.+)$/, 'a.$1'))
+          $('.amount_label').show()
+        } else {
+          $(this).attr('src', $(this).attr('src').replace(/a\.(.+)$/, '.$1'))
+          $('.amount_label').hide()
+        }
+      })
+    })
 }
 
 jQuery(main)
@@ -131,7 +303,7 @@ function balls (total, it, cb) {
   let listener = function (ev) {
     px++
 
-    if (px > 10) {
+    if (px > 5) {
       px = 0
 
       count++
@@ -140,19 +312,15 @@ function balls (total, it, cb) {
       $('<div />')
         .css('top', ev.clientY)
         .css('left', ev.clientX)
-        .addClass('ball2')
+        .addClass('ball')
         .appendTo($body)
-        // .clone()
-        // .removeClass('ball')
-        // .addClass('ball2')
-        // .appendTo($body)
 
       it()
 
       if (count >= total) {
         cb()
         $doc.unbind('mousemove', listener)
-        $('.ball, .ball2').hide().remove()
+        $('.ball, .ball').hide().remove()
         $ct.hide()
       }
     }

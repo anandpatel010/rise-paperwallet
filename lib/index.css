@@ -1,3 +1,7 @@
+#preload {
+  display: none;
+  background: url(../images/01.png), url(../images/01a.png), url(../images/02.png), url(../images/02a.png);
+}
 @font-face {
   font-family: 'Inconsolata';
   font-style: normal;
@@ -62,49 +66,24 @@ body {
   text-align: center;
 }
 .paper-wrapper {
-  width: 780px;
-  height: 360px;
   margin-top: 25px;
   margin-bottom: 25px;
   cursor: default;
 }
 .paper-wrapper .paper {
   position: absolute;
-  width: 780px;
-  height: 360px;
 }
 .paper-wrapper .paper .qr {
   position: absolute;
 }
-.paper-wrapper .paper .qr.qr_address_paper {
-  top: 45px;
-  left: 15px;
-}
-.paper-wrapper .paper .qr.qr_passphrase_paper {
-  bottom: 45px;
-  right: 15px;
-}
 .paper-wrapper .paper .address,
-.paper-wrapper .paper .passphrase {
+.paper-wrapper .paper .passphrase,
+.paper-wrapper .paper .address_label,
+.paper-wrapper .paper .passphrase_label,
+.paper-wrapper .paper .amount_label {
   position: absolute;
-  width: 760px;
-  height: 20px;
-  line-height: 20px;
-  padding: 0 5px;
-  font-size: 14px;
-  font-family: Inconsolata;
   white-space: nowrap;
-  color: #000;
-}
-.paper-wrapper .paper .address {
-  top: 10px;
-  left: 10px;
-  text-align: left;
-}
-.paper-wrapper .paper .passphrase {
-  bottom: 10px;
-  left: 10px;
-  text-align: right;
+  color: #2c2c2c;
 }
 @media print {
   .noprint,
@@ -115,8 +94,7 @@ body {
     color: red;
   }
 }
-.ball,
-.ball2 {
+.ball {
   position: absolute;
   background-color: #0288d1;
   width: 8px;
@@ -125,23 +103,9 @@ body {
 }
 .ball {
   animation: anim 1s;
-  opacity: 0;
-}
-.ball2 {
-  animation: anim2 1s;
   opacity: 0.1;
 }
 @keyframes anim {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    top: -10px;
-    left: 50%;
-  }
-}
-@keyframes anim2 {
   0% {
     opacity: 1;
   }

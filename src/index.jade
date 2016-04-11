@@ -87,21 +87,22 @@ html.no-js
       .row.after
         .col-md-12.text-center
           h2.noprint Paper Wallet
-          h5.noprint More wallet's design coming soon!
-          //- .papers
-          //-   .btn-group.btn-group-xs
-          //-     button.btn.btn-default.active(type="button") 1
-          //-     button.btn.btn-default(type="button") 2
-          //-   input(type="checkbox", checked)
-          //-   span= " Amount"
+          .papers.noprint
+            .btn-group.btn-group-xs
+            input.show-amount(type="checkbox")
+            span= " Box to write amount"
           .paper-wrapper.center-block: .paper
-            img(src='images/01.png')
+            img
             .qr.qr_address_paper
             .qr.qr_passphrase_paper
             .address
+            .address_label address
             .passphrase
+            .passphrase_label passphrase
+            .amount_label amount:
       .row.noprint.after
         .col-md-12.text-center: button.btn.btn-lg.btn-success.btn-print(type='button') Print Paper Wallet
+      #preload
     script(src='third-party/jquery.min.js')
     script(src='third-party/jquery.qrcode.min.js')
     //- script(src='third-party/bootstrap/bootstrap.min.js')
