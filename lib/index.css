@@ -37,6 +37,7 @@ body {
 .hash {
   font-family: Inconsolata;
   word-wrap: break-word;
+  cursor: pointer;
 }
 .passphrase,
 .address {
