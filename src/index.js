@@ -88,6 +88,7 @@ let main = () => {
   let $enter_text = $enter_row.find('input')
   let $enter_btn = $enter_row.find('.btn')
   let $after = $('.after')
+  let $entropy_tmp = $('.entropy-tmp')
 
   let start = function () {
     $enter_row.hide()
@@ -100,9 +101,10 @@ let main = () => {
 
       $('.passphrase').text(lw.passphrase)
       $('.address').text(lw.address)
+      $('.entropy').text(lw.entropy)
+      $('.passphraseHash').text(lw.hash)
       $('.publicKey').text(lw.publicKey)
       $('.privateKey').text(lw.privateKey)
-      $('.passphraseHash').text(lw.hash)
 
       $('.qr_address').empty().qrcode({ render: 'image', size: 350, text: lw.address })
       $('.qr_passphrase').empty().qrcode({ render: 'image', size: 350, text: lw.passphrase })
@@ -190,13 +192,15 @@ let main = () => {
 
     if ($(this).hasClass('btn_random')) {
       $btns_row.hide()
+      $entropy_tmp.text('')
 
       balls(
-        window.location.protocol === 'filae:' ? 10 : 75 + parseInt(Math.random() * 25),
-        function () {
-          passphrase = LiskWallet.generateMnemonic()
+        16 * (window.location.protocol === 'file:' ? 2 : 5 + parseInt(Math.random() * 3)),
+        (hex) => {
+          $entropy_tmp.text(hex)
         },
-        () => {
+        (hex) => {
+          passphrase = LiskWallet.entropyToMnemonic(hex)
           $btns_row.show()
           build()
         }
@@ -296,14 +300,17 @@ function balls (total, it, cb) {
   let $body = $('body')
   let $pb = $('.progress-bar').css('width', 0)
   let $ct = $('.bar').show()
+  let $et = $('.entropy')
 
   let px = 0
   let count = 0
+  let bytes = new Array(16)
+  let b = 0
 
   let listener = function (ev) {
     px++
 
-    if (px > 5) {
+    if (px > 4) {
       px = 0
 
       count++
@@ -315,10 +322,14 @@ function balls (total, it, cb) {
         .addClass('ball')
         .appendTo($body)
 
-      it()
+      bytes[b++ % bytes.length] = LiskWallet.randomBytes(1).toString('hex')
+
+      let hex = rpad(bytes.join(''), '0', 32)
+
+      it(hex)
 
       if (count >= total) {
-        cb()
+        cb(hex)
         $doc.unbind('mousemove', listener)
         $('.ball, .ball').hide().remove()
         $ct.hide()
@@ -327,4 +338,9 @@ function balls (total, it, cb) {
   }
 
   $doc.mousemove(listener)
+}
+
+function rpad (str, pad, length) {
+  while (str.length < length) str = str + pad
+  return str
 }

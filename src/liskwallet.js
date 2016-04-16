@@ -35,6 +35,7 @@ window.LiskWallet = (passphrase) => {
     address: getAddress(publicKey),
     publicKey: publicKey.toString('hex'),
     privateKey: privateKey.toString('hex'),
+    entropy: bip39.mnemonicToEntropy(passphrase),
   }
 }
 
@@ -45,3 +46,6 @@ window.LiskWallet.generateMnemonic = () => {
 window.LiskWallet.validateMnemonic = (mnemonic) => {
   return bip39.validateMnemonic(mnemonic)
 }
+
+window.LiskWallet.randomBytes = crypto.randomBytes
+window.LiskWallet.entropyToMnemonic = bip39.entropyToMnemonic
