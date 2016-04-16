@@ -195,7 +195,7 @@ let main = () => {
       $entropy_tmp.text('')
 
       balls(
-        16 * (window.location.protocol === 'file:' ? 2 : 5 + parseInt(Math.random() * 3)),
+        16 * (window.location.protocol === 'file:' ? 3 : 7 + parseInt(Math.random() * 5)),
         (hex) => {
           $entropy_tmp.text(hex)
         },
@@ -302,19 +302,26 @@ function balls (total, it, cb) {
   let $ct = $('.bar').show()
   let $et = $('.entropy')
 
-  let px = 0
   let count = 0
   let bytes = new Array(16)
   let b = 0
 
+  let x1 = 0
+  let y1 = 0
+
   let listener = function (ev) {
-    px++
+    let x2 = ev.clientX
+    let y2 = ev.clientY
+    let distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
 
-    if (px > 4) {
-      px = 0
-
+    if (distance > 20) {
+      x1 = ev.clientX
+      y1 = ev.clientY
       count++
-      $pb.css('width', (count / total * 100) + '%')
+
+      let pc = parseInt(count / total * 100) + '%'
+
+      $pb.text(pc).width(pc)
 
       $('<div />')
         .css('top', ev.clientY)
