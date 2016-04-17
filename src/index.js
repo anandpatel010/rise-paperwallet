@@ -17,6 +17,7 @@ let arts = {
         padding: '0 5px',
         fontSize: 16,
         fontFamily: 'Inconsolata',
+        fontWeight: 'bold',
         top: 10,
         left: 10,
         textAlign: 'left'
@@ -28,6 +29,7 @@ let arts = {
         lineHeight: '26px',
         fontSize: 22,
         fontFamily: 'Inconsolata',
+        fontWeight: 'bold',
         textShadow: '1px 1px 1px rgba(0, 0, 0, 0.3)'
       }
     },
@@ -44,6 +46,7 @@ let arts = {
         padding: '0 5px',
         fontSize: 14,
         fontFamily: 'Inconsolata',
+        fontWeight: 'bold',
         bottom: 10,
         left: 10,
         textAlign: 'right'
@@ -55,6 +58,7 @@ let arts = {
         lineHeight: '26px',
         fontSize: 22,
         fontFamily: 'Inconsolata',
+        fontWeight: 'bold',
         textShadow: '1px 1px 1px rgba(0, 0, 0, 0.3)'
       }
     },
