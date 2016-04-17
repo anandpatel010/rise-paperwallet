@@ -36,6 +36,7 @@ window.LiskWallet = (passphrase) => {
     publicKey: publicKey.toString('hex'),
     privateKey: privateKey.toString('hex'),
     entropy: bip39.mnemonicToEntropy(passphrase),
+    seed: bip39.mnemonicToSeedHex(passphrase),
   }
 }
 

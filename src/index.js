@@ -103,6 +103,7 @@ let main = () => {
       $('.passphrase').text(lw.passphrase)
       $('.address').text(lw.address)
       $('.entropy').text(lw.entropy)
+      $('.seed').text(lw.seed)
       $('.passphraseHash').text(lw.hash)
       $('.publicKey').text(lw.publicKey)
       $('.privateKey').text(lw.privateKey)
