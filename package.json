@@ -1,6 +1,6 @@
 {
   "name": "liskpaperwallet",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Unofficial paper wallet generator for Lisk cryptocurrency. In development.",
   "homepage": "https://github.com/rferro/liskpaperwallet",
   "bugs": "https://github.com/rferro/liskpaperwallet/issues",
