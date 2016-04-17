@@ -197,7 +197,7 @@ let main = () => {
       $entropy_tmp.text('')
 
       randomBytes(
-        4 * (window.location.protocol === 'file:' ? 5 : 30 + parseInt(Math.random() * 20)),
+        4 * (window.location.protocol === 'file:' ? 10 : 75 + parseInt(Math.random() * 25)),
         (hex) => {
           $entropy_tmp.text(hex)
         },
