@@ -97,21 +97,23 @@ body {
 }
 .ball {
   position: absolute;
-  background-color: #0288d1;
+  background-color: #f57c00;
+  border-radius: 20px;
+  animation: anim 0.3s;
+  opacity: 0.4;
   width: 8px;
   height: 8px;
-  border-radius: 20px;
-}
-.ball {
-  animation: anim 1s;
-  opacity: 0.1;
+  margin: -4px 0 0 -4px;
 }
 @keyframes anim {
   0% {
     opacity: 1;
+    width: 1px;
+    height: 1px;
+    margin: 0;
   }
   100% {
-    opacity: 0.1;
+    opacity: 0.4;
   }
 }
 .pulsate {

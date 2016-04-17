@@ -89,6 +89,7 @@ let main = () => {
   let $enter_btn = $enter_row.find('.btn')
   let $after = $('.after')
   let $entropy_tmp = $('.entropy-tmp')
+  let $bar = $('.bar')
 
   let start = function () {
     $enter_row.hide()
@@ -192,15 +193,19 @@ let main = () => {
 
     if ($(this).hasClass('btn_random')) {
       $btns_row.hide()
+      $bar.show()
       $entropy_tmp.text('')
 
-      balls(
-        16 * (window.location.protocol === 'file:' ? 3 : 7 + parseInt(Math.random() * 5)),
+      randomBytes(
+        16 * (window.location.protocol === 'file:' ? 4 : 10 + parseInt(Math.random() * 8)),
         (hex) => {
           $entropy_tmp.text(hex)
         },
         (hex) => {
+          $bar.hide()
+
           passphrase = LiskWallet.entropyToMnemonic(hex)
+
           $btns_row.show()
           build()
         }
@@ -295,33 +300,22 @@ let main = () => {
 
 jQuery(main)
 
-function balls (total, it, cb) {
+function randomBytes (total, it, cb) {
   let $doc = $(document)
   let $body = $('body')
   let $pb = $('.progress-bar').css('width', 0)
-  let $ct = $('.bar').show()
-  let $et = $('.entropy')
 
   let count = 0
-  let bytes = new Array(16)
-  let b = 0
+  let last = [0, 0]
 
-  let x1 = 0
-  let y1 = 0
+  let bytes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  let bytes_c = []
 
-  let listener = function (ev) {
-    let x2 = ev.clientX
-    let y2 = ev.clientY
-    let distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
+  let listener = (ev) => {
+    let distance = Math.sqrt(Math.pow(ev.clientX - last[0], 2) + Math.pow(ev.clientY - last[1], 2))
 
-    if (distance > 20) {
-      x1 = ev.clientX
-      y1 = ev.clientY
+    if (distance > 64) {
       count++
-
-      let pc = parseInt(count / total * 100) + '%'
-
-      $pb.text(pc).width(pc)
 
       $('<div />')
         .css('top', ev.clientY)
@@ -329,22 +323,41 @@ function balls (total, it, cb) {
         .addClass('ball')
         .appendTo($body)
 
-      bytes[b++ % bytes.length] = LiskWallet.randomBytes(1).toString('hex')
+      $pb.width(parseInt(count / total * 100) + '%')
 
-      let hex = rpad(bytes.join(''), '0', 32)
+      last = [ev.clientX, ev.clientY]
 
-      it(hex)
+      let c
+
+      do {
+        c = parseInt(Math.random() * bytes.length)
+      } while (bytes_c.indexOf(c) !== -1)
+
+      bytes_c.push(c)
+
+      if (bytes_c.length >= bytes.length)
+        bytes_c = []
+
+      bytes[c] = LiskWallet.randomBytes(1)[0]
+
+      let hex = bytes.map(v => lpad(v.toString(16), '0', 2))
+
+      it(hex.join(' '))
 
       if (count >= total) {
-        cb(hex)
+        cb(hex.join(''))
         $doc.unbind('mousemove', listener)
-        $('.ball, .ball').hide().remove()
-        $ct.hide()
+        $('.ball').hide().remove()
       }
     }
   }
 
   $doc.mousemove(listener)
+}
+
+function lpad (str, pad, length) {
+  while (str.length < length) str = pad + str
+  return str
 }
 
 function rpad (str, pad, length) {
