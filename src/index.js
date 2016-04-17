@@ -197,7 +197,7 @@ let main = () => {
       $entropy_tmp.text('')
 
       randomBytes(
-        16 * (window.location.protocol === 'file:' ? 4 : 10 + parseInt(Math.random() * 8)),
+        4 * (window.location.protocol === 'file:' ? 5 : 30 + parseInt(Math.random() * 20)),
         (hex) => {
           $entropy_tmp.text(hex)
         },
@@ -309,12 +309,12 @@ function randomBytes (total, it, cb) {
   let last = [0, 0]
 
   let bytes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  let bytes_c = []
+  let bytes_c = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
   let listener = (ev) => {
     let distance = Math.sqrt(Math.pow(ev.clientX - last[0], 2) + Math.pow(ev.clientY - last[1], 2))
 
-    if (distance > 64) {
+    if (distance > 50) {
       count++
 
       $('<div />')
@@ -327,18 +327,27 @@ function randomBytes (total, it, cb) {
 
       last = [ev.clientX, ev.clientY]
 
-      let c
+      for (let p = 0; p < 4; p++) {
+        let available = []
+        let c = 0
 
-      do {
-        c = parseInt(Math.random() * bytes.length)
-      } while (bytes_c.indexOf(c) !== -1)
+        for (let i in bytes_c) {
+          if (!bytes_c[i]) {
+            available.push(i)
+          }
+        }
 
-      bytes_c.push(c)
+        if (!available.length) {
+          bytes_c = bytes_c.map(v => 0)
+        }
+        else {
+          c = available[parseInt(Math.random() * available.length)]
+        }
 
-      if (bytes_c.length >= bytes.length)
-        bytes_c = []
+        bytes_c[c] = 1
+        bytes[c] = LiskWallet.randomBytes(1)[0]
 
-      bytes[c] = LiskWallet.randomBytes(1)[0]
+      }
 
       let hex = bytes.map(v => lpad(v.toString(16), '0', 2))
 
@@ -352,7 +361,9 @@ function randomBytes (total, it, cb) {
     }
   }
 
-  $doc.mousemove(listener)
+  setTimeout(() => {
+    $doc.mousemove(listener)
+  }, 500)
 }
 
 function lpad (str, pad, length) {

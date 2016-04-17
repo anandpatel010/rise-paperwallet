@@ -39,6 +39,9 @@ body {
   word-wrap: break-word;
   cursor: pointer;
 }
+.entropy-tmp {
+  color: #555;
+}
 .passphrase,
 .address {
   text-align: center;
