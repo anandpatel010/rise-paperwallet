@@ -199,13 +199,13 @@ let main = () => {
 
       randomBytes(
         4 * (window.location.protocol === 'file:' ? 10 : 75 + parseInt(Math.random() * 25)),
-        (hex) => {
-          $entropy_tmp.text(hex)
+        (entropy) => {
+          $entropy_tmp.text(entropy)
         },
-        (hex) => {
+        (entropy) => {
           $bar.hide()
 
-          passphrase = LiskWallet.entropyToMnemonic(hex)
+          passphrase = LiskWallet.entropyToMnemonic(entropy)
 
           $btns_row.show()
           build()
