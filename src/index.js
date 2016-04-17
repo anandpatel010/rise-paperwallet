@@ -363,7 +363,7 @@ function randomBytes (total, it, cb) {
 
   setTimeout(() => {
     $doc.mousemove(listener)
-  }, 500)
+  }, 100)
 }
 
 function lpad (str, pad, length) {
