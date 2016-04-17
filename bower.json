@@ -1,0 +1,8 @@
+{
+  "name": "liskpaperwallet",
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "jquery": "^2.2.3",
+    "jquery-qrcode": "jquery.qrcode#^0.12.0"
+  }
+}
