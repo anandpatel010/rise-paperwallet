@@ -1,12 +1,14 @@
 
 let arts = {
-  'base': {
+  '0': {
     image: '01',
     width: 780,
     height: 360,
     address: {
       qr: {
         size: 150,
+        width: '150px',
+        height: '150px',
         top: 45,
         left: 15
       },
@@ -36,6 +38,8 @@ let arts = {
     passphrase: {
       qr: {
         size: 150,
+        width: '150px',
+        height: '150px',
         bottom: 45,
         right: 15
       },
@@ -75,308 +79,314 @@ let arts = {
       }
     }
   },
-  '01': {
-    extend: 'base',
+  '1': {
+    extend: '0',
     image: '01'
   },
-  '02': {
-    extend: 'base',
+  '2': {
+    extend: '0',
     image: '02'
   }
 }
 
-let main = () => {
-  let $btns_row = $('.btns').show()
-  let $btns = $btns_row.find('.btn')
-  let $enter_row = $('.enter')
-  let $enter_text = $enter_row.find('input')
-  let $enter_btn = $enter_row.find('.btn')
-  let $after = $('.after')
-  let $entropy_tmp = $('.entropy-tmp')
-  let $bar = $('.bar')
+let app = angular.module('app', ['wallet', 'ngAnimate', 'ui.bootstrap'])
 
-  let start = function () {
-    $enter_row.hide()
-    $after.hide()
+app.controller('main', ($scope) => {
+})
 
-    let passphrase
-
-    let build = () => {
-      let lw = LiskWallet(passphrase)
-
-      $('.passphrase').text(lw.passphrase)
-      $('.address').text(lw.address)
-      $('.entropy').text(lw.entropy)
-      $('.seed').text(lw.seed)
-      $('.passphraseHash').text(lw.hash)
-      $('.publicKey').text(lw.publicKey)
-      $('.privateKey').text(lw.privateKey)
-
-      $('.qr_address').empty().qrcode({ render: 'image', size: 350, text: lw.address })
-      $('.qr_passphrase').empty().qrcode({ render: 'image', size: 350, text: lw.passphrase })
-
-      $('.papers .show-amount').prop('checked', false)
-      $('.papers .btn-group button').remove()
-      $('.amount_label').hide()
-
-      for (let id in arts) {
-        if (id === 'base') {
-          continue
-        }
-
-        let extendArt = (id) => {
-          if (id === 'base') {
-            return arts[id]
-          }
-
-          if (!arts[id]) {
-            return {}
-          }
-
-          return $.extend(true, {}, extendArt(arts[id].extend), arts[id])
-        }
-
-        $('<button>')
-          .attr('type', 'button')
-          .text(id)
-          .addClass('btn btn-default')
-          .click(function () {
-            $(this).parent().find('.btn').removeClass('active btn-primary')
-            $(this).addClass('active btn-primary')
-
-            let art = extendArt(id)
-            let amount = $('.show-amount').is(':checked') ? 'a' : ''
-
-            $('.paper img').attr('src', `images/${art.image}${amount}.png`)
-
-            $('.paper-wrapper, .paper').css({
-              width: art.width,
-              height: art.height
-            })
-
-            $('.qr_address_paper')
-              .empty()
-              .css(art.address.qr)
-              .qrcode({
-                render: 'image',
-                size: art.address.qr.size,
-                text: lw.address
-              })
-
-            $('.qr_passphrase_paper')
-              .empty()
-              .css(art.passphrase.qr)
-              .qrcode({
-                render: 'image',
-                size: art.passphrase.qr.size,
-                text: lw.passphrase
-              })
-
-            $('.paper .address').css(art.address.text)
-            $('.paper .passphrase').css(art.passphrase.text)
-
-            if (art.address.label.hide) {
-              $('.paper .address_label').hide()
-            } else {
-              $('.paper .address_label').css(art.address.label).show()
-            }
-
-            if (art.passphrase.label.hide) {
-              $('.paper .passphrase_label').hide()
-            } else {
-              $('.paper .passphrase_label').css(art.passphrase.label).show()
-            }
-
-            $('.paper .amount_label').css(art.amount.label)
-          })
-          .appendTo($('.papers .btn-group'))
-      }
-
-      $('.papers .btn-group button:first').click()
-      $after.show()
+app.factory('util', () => {
+  return {
+    lpad (str, pad, length) {
+      while (str.length < length) str = pad + str
+      return str
+    },
+    rpad (str, pad, length) {
+      while (str.length < length) str = str + pad
+      return str
     }
+  }
+})
 
-    if ($(this).hasClass('btn_random')) {
-      $btns_row.hide()
-      $bar.show()
-      $entropy_tmp.text('')
+app.directive('animateOnChange', ($animate, $timeout) => (scope, elem, attr) => {
+  scope.$watch(attr.animateOnChange, (nv, ov) => {
+    if (nv != ov) {
+      $animate.addClass(elem, 'change').then(() => {
+        $timeout(() => $animate.removeClass(elem, 'change'))
+      })
+    }
+  })
+})
 
-      randomBytes(
-        4 * (window.location.protocol === 'file:' ? 10 : 75 + parseInt(Math.random() * 25)),
-        (entropy) => {
-          $entropy_tmp.text(entropy)
-        },
-        (entropy) => {
-          $bar.hide()
-
-          passphrase = LiskWallet.entropyToMnemonic(entropy)
-
-          $btns_row.show()
-          build()
-        }
-      )
-    } else {
-      $enter_btn.attr('disabled', 1)
-      $enter_row.show()
-
-      let $form = $enter_row.parent().removeClass('has-success has-error')
+app.directive('entropy', ($rootScope, $document, $timeout, wallet, util) => {
+  return {
+    restrict: 'E',
+    templateUrl: 'entropy',
+    scope: {},
+    link (scope, elem, attrs) {
+      let $input = elem.find('.input_passphrase')
+      let $button = elem.find('.btn_generate')
+      let $form = $input.parent()
 
       let fix = v => v.replace(/ +/g, ' ').trim().toLowerCase()
 
-      let error = function (err) {
-        $enter_btn.attr('disabled', err)
-
-        if (err) {
-          $form.removeClass('has-success').addClass('has-error')
-        }
-        else {
+      scope.$watch('enter.valid', (valid) => {
+        if (valid) {
           $form.removeClass('has-error').addClass('has-success')
-        }
-      }
-
-      $enter_text.val('').focus().unbind('keyup').keyup(function (e) {
-        let value = fix($enter_text.val())
-
-        if (value.split(' ').length !== 12 || !LiskWallet.validateMnemonic(value)) {
-          error(true)
-        }
-        else {
-          error(false)
-
-          if (e.keyCode === 13)
-            $enter_btn.click()
-        }
-      })
-
-      $enter_btn.unbind('click').click(function () {
-        passphrase = fix($enter_text.val())
-        $(this).attr('disabled', 1)
-        $enter_row.hide()
-        build()
-      })
-    }
-  }
-
-  $btns.click(start)
-
-  $('.hash').click(function () {
-    let range, selection
-
-    if (window.getSelection) {
-       selection = window.getSelection()
-       range = document.createRange()
-       range.selectNodeContents(this)
-       selection.removeAllRanges()
-       selection.addRange(range)
-    }
-    else if (document.body.createTextRange) {
-       range = document.body.createTextRange()
-       range.moveToElementText(this)
-       range.select()
-    }
-  })
-
-  $('.btn-print').click(() => {
-    window.print()
-  })
-
-  $('.papers').find('.btn').click(function () {
-    let $this = $(this)
-
-    $this.parent().find('.btn').removeClass('active')
-    $this.addClass('active')
-  })
-
-  $('.papers .show-amount')
-    .change(function () {
-      let $cb = $(this)
-
-      $('.paper img').each(function () {
-        if ($cb.is(':checked')) {
-          $(this).attr('src', $(this).attr('src').replace(/\.(.+)$/, 'a.$1'))
-          $('.amount_label').show()
+          $button.removeClass('btn-danger').addClass('btn-success')
         } else {
-          $(this).attr('src', $(this).attr('src').replace(/a\.(.+)$/, '.$1'))
-          $('.amount_label').hide()
+          $form.removeClass('has-success').addClass('has-error')
+          $button.removeClass('btn-success').addClass('btn-danger')
         }
       })
-    })
-}
 
-jQuery(main)
+      scope.enterGenerate = () => {
+        scope.btn.disable()
+        scope.enter.stop()
 
-function randomBytes (total, it, cb) {
-  let $doc = $(document)
-  let $body = $('body')
-  let $pb = $('.progress-bar').css('width', 0)
-
-  let count = 0
-  let last = [0, 0]
-
-  let bytes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  let bytes_c = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-  let listener = (ev) => {
-    let distance = Math.sqrt(Math.pow(ev.clientX - last[0], 2) + Math.pow(ev.clientY - last[1], 2))
-
-    if (distance > 50) {
-      count++
-
-      $('<div />')
-        .css('top', ev.clientY)
-        .css('left', ev.clientX)
-        .addClass('ball')
-        .appendTo($body)
-
-      $pb.width(parseInt(count / total * 100) + '%')
-
-      last = [ev.clientX, ev.clientY]
-
-      for (let p = 0; p < 4; p++) {
-        let available = []
-        let c = 0
-
-        for (let i in bytes_c) {
-          if (!bytes_c[i]) {
-            available.push(i)
-          }
-        }
-
-        if (!available.length) {
-          bytes_c = bytes_c.map(v => 0)
-        }
-        else {
-          c = available[parseInt(Math.random() * available.length)]
-        }
-
-        bytes_c[c] = 1
-        bytes[c] = LiskWallet.randomBytes(1)[0]
-
+        $timeout(() => $rootScope.$broadcast('wallet_start', fix($input.val())))
       }
 
-      let hex = bytes.map(v => lpad(v.toString(16), '0', 2))
+      scope.enterKeyUp = (ev) => {
+        let value = fix($input.val())
 
-      it(hex.join(' '))
+        if (value.split(' ').length !== 12 || !wallet.validateMnemonic(value)) {
+          scope.enter.valid = false
+        }
+        else {
+          scope.enter.valid = true
 
-      if (count >= total) {
-        cb(hex.join(''))
-        $doc.unbind('mousemove', listener)
-        $('.ball').hide().remove()
+          if (ev.keyCode === 13)
+            scope.enterGenerate()
+        }
+      }
+
+      scope.enterFocus = () => {
+        $timeout(() => $input.focus())
+      }
+    },
+    controller ($scope) {
+      $scope.btn = {
+        disable () {
+          $scope.btn_disabled = true
+        },
+        enable () {
+          $scope.btn_disabled = false
+        }
+      }
+
+      $rootScope.$on('btn_disabled', () => {
+        $scope.btn.disable()
+      })
+
+      $rootScope.$on('btn_enabled', () => {
+        $scope.btn.enable()
+      })
+
+      $scope.random = {
+        empty () {
+          return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        },
+        reset () {
+          $scope.random.progress = 0
+          $scope.random.tmp = $scope.random.empty()
+        },
+        stop () {
+          $scope.random.started = false
+        },
+        start () {
+          $scope.btn.disable()
+
+          $scope.random.started = true
+
+          $rootScope.$broadcast('wallet_stop')
+          $scope.enter.stop()
+          $scope.random.reset()
+
+          let last = [0, 0]
+          let used = $scope.random.empty()
+
+          let turns = (window.location.protocol === 'file:' ? 2 : (25 + parseInt(Math.random() * 10)))
+          let steps = 1
+          let total = turns * used.length
+          let count = 0
+
+          console.log('entropy', { turns, steps, total })
+
+          let listener = (ev) => {
+            let distance = Math.sqrt(Math.pow(ev.pageX - last[0], 2) + Math.pow(ev.pageY - last[1], 2))
+
+            if (distance > 60) {
+              for (let p = 0; p < steps; p++) {
+                let pos
+                let available = []
+
+                for (let i in used) {
+                  if (!used[i]) {
+                    available.push(i)
+                  }
+                }
+
+                if (!available.length) {
+                  used = used.map(v => 0)
+                  pos = parseInt(Math.random() * used.length)
+                } else {
+                  pos = available[parseInt(Math.random() * available.length)]
+                }
+
+                count++
+
+                last = [ev.pageX, ev.pageY]
+                used[pos] = 1
+
+                $scope.$apply(() => {
+                  $scope.random.tmp[pos] = wallet.randomBytes(1)[0]
+                  $scope.random.progress = parseInt(count / total * 100)
+                })
+
+                if (count >= total) {
+                  $document.unbind('mousemove', listener)
+
+                  $timeout(() => {
+                    let hex = $scope.random.tmp.map(v => util.lpad(v.toString(16), '0', 2)).join('')
+
+                    $scope.random.reset()
+                    $scope.random.stop()
+
+                    $timeout(() => $rootScope.$broadcast('wallet_start', wallet.entropyToMnemonic(hex)))
+                  }, 400)
+
+                  return
+                }
+              }
+            }
+          }
+
+          $timeout(() => $document.mousemove(listener), 300)
+        }
+      }
+
+      $scope.enter = {
+        reset () {
+          $scope.enter.valid = false
+          $scope.enter.value = ''
+        },
+        stop () {
+          $scope.enter.started = false
+        },
+        start () {
+          $rootScope.$broadcast('wallet_stop')
+
+          $scope.enter.started = true
+
+          $scope.enter.reset()
+          $scope.enterFocus()
+        }
       }
     }
   }
+})
 
-  setTimeout(() => {
-    $doc.mousemove(listener)
-  }, 100)
-}
+app.directive('byte', (util) => {
+  return {
+    restrict: 'E',
+    templateUrl: 'byte',
+    scope: { data: '=ngData' },
+    link (scope, elem, attrs) {
+      scope.$watch('data', (nv) => {
+        scope.dec = util.lpad(nv.toString(), '0', 3)
+        scope.hex = util.lpad(nv.toString(16), '0', 2)
+      })
+    }
+  }
+})
 
-function lpad (str, pad, length) {
-  while (str.length < length) str = pad + str
-  return str
-}
+app.directive('wallet', ($rootScope, $timeout, wallet) => {
+  return {
+    restrict: 'E',
+    templateUrl: 'wallet',
+    scope: {},
+    link (scope, elem, attrs) {
+      let $loading = elem.find('.loading').hide()
+      let $after = elem.find('.after').hide()
 
-function rpad (str, pad, length) {
-  while (str.length < length) str = str + pad
-  return str
-}
+      scope.arts = arts
+
+      let extendArt = (id) => {
+        if (!scope.arts[id]) {
+          return {}
+        }
+
+        return angular.merge({}, extendArt(scope.arts[id].extend), scope.arts[id])
+      }
+
+      scope.set_art = (id) => {
+        scope.art_active = id
+        scope.art = extendArt(scope.art_active)
+      }
+
+      scope.set_art('1')
+
+      $rootScope.$on('wallet_start', (ev, passphrase) => {
+        $loading.show()
+
+        $timeout(() => {
+          scope.data = wallet.mnemonicToData(passphrase)
+
+          $rootScope.$broadcast('btn_enabled')
+          $loading.hide()
+          $after.show()
+        }, 700)
+      })
+
+      $rootScope.$on('wallet_stop', () => {
+        $after.hide()
+        scope.data = {}
+      })
+
+      scope.print = () => {
+        window.print()
+      }
+    }
+  }
+})
+
+app.directive('clipboard', () => {
+  return {
+    restrict: 'A',
+    link (scope, elem, attrs) {
+      elem.click(() => {
+        let range, selection
+
+        if (window.getSelection) {
+          selection = window.getSelection()
+          range = document.createRange()
+          range.selectNodeContents(elem[0])
+          selection.removeAllRanges()
+          selection.addRange(range)
+         } else if (document.body.createTextRange) {
+          range = document.body.createTextRange()
+          range.moveToElementText(elem[0])
+          range.select()
+         }
+      })
+    }
+  }
+})
+
+app.directive('qrcode', () => {
+  return {
+    restrict: 'E',
+    scope: { data: '=data', size: '=size' },
+    link (scope, elem, attrs) {
+      scope.$watch('data', (nv) => {
+        elem.empty()
+
+        if (nv) {
+          elem.qrcode({ render: 'image', size: scope.size, text: nv })
+        }
+      })
+    }
+  }
+})
+
+angular.bootstrap(document, ['app'])

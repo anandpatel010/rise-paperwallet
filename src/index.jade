@@ -8,111 +8,138 @@ html.no-js
     meta(name='keywords', content='lisk,paperwallet,paper,wallet,cryptocurrency,lisk.io,crypti')
     meta(name='viewport', content='width=device-width, initial-scale=1')
 
-    link(rel='stylesheet', href='third-party/bootstrap/dist/css/bootstrap.min.css')
-    link(rel='stylesheet', href='third-party/bootstrap/dist/css/bootstrap-theme.min.css')
+    link(rel='stylesheet', href='third-party/bootswatch-dist/css/bootstrap.min.css')
     link(rel='stylesheet', href='lib/index.css')
-  body
+  body(ng-controller='main', ng-cloak)
     .container-fluid
       .row.noprint
         .col-md-12
           .page-header.text-center
             h1
               a(href='index.html') Lisk Paper Wallet
-              = " "
+              = ' '
               small v0.2.5
             h5
-              = "Unofficial paper wallet generator for "
+              = 'Unofficial paper wallet generator for '
               a(href='http://lisk.io', target='blank') Lisk
-              = " cryptocurrency. In development."
-            h5
-              = "Hosted by Github Pages. Source code is available "
+              = ' cryptocurrency. '
+              = 'Hosted by Github Pages. Source code is available '
               a(href='https://github.com/rferro/liskpaperwallet/tree/gh-pages', target='blank') here
-              = "."
+              = '.'
+            h5
+              = 'We recommended use this tool offline: '
+              a.alert-link(href='https://github.com/rferro/liskpaperwallet/archive/master.zip') download
+              = ' the source code and open index.html in your browser without internet access.'
             .gh-btns
               a.github-button(href='https://github.com/rferro/liskpaperwallet', data-icon='octicon-eye', data-style='mega', data-count-href='/rferro/liskpaperwallet/watchers', data-count-api='/repos/rferro/liskpaperwallet#subscribers_count', data-count-aria-label='# watchers on GitHub', aria-label='Watch rferro/liskpaperwallet on GitHub') Watch
               a.github-button(href='https://github.com/rferro/liskpaperwallet', data-icon='octicon-star', data-style='mega', data-count-href='/rferro/liskpaperwallet/stargazers', data-count-api='/repos/rferro/liskpaperwallet#stargazers_count', data-count-aria-label='# stargazers on GitHub', aria-label='Star rferro/liskpaperwallet on GitHub') Star
               a.github-button(href='https://github.com/rferro/liskpaperwallet/fork', data-icon='octicon-repo-forked', data-style='mega', data-count-href='/rferro/liskpaperwallet/network', data-count-api='/repos/rferro/liskpaperwallet#forks_count', data-count-aria-label='# forks on GitHub', aria-label='Fork rferro/liskpaperwallet on GitHub') Fork
               a.github-button(href='https://github.com/rferro/liskpaperwallet/issues', data-icon='octicon-issue-opened', data-style='mega', data-count-api='/repos/rferro/liskpaperwallet#open_issues_count', data-count-aria-label='# issues on GitHub', aria-label='Issue rferro/liskpaperwallet on GitHub') Issue
               a.github-button(href='https://github.com/rferro/liskpaperwallet/archive/master.zip', data-icon='octicon-cloud-download', data-style='mega', aria-label='Download rferro/liskpaperwallet on GitHub') Download
-      .row.noprint
-        .col-md-12.text-center
-          .alert.alert-warning
-            strong= "We recommended use this tool offline: "
-            a.alert-link(href='https://github.com/rferro/liskpaperwallet/archive/master.zip') download
-            = " the source code and open index.html in your browser without internet access."
+
+      entropy
+      wallet
+      #preload
+
+    script(type='text/ng-template', id='entropy')
       .row.noprint.btns
         .col-md-12.text-center
-          button.btn.btn-default.btn-lg.btn_random(type='button') Create a random wallet
-          span.or= " or "
-          button.btn.btn-default.btn-lg(type='button') enter your passphrase
-      .row.noprint.enter
+          button.btn.btn-info.btn_random(type='button', ng-click='random.start()', ng-disabled='btn_disabled') Create a random wallet
+          button.btn.btn-info(type='button', ng-click='enter.start()', ng-disabled='btn_disabled') Enter your passphrase
+      .row.noprint(ng-show='enter.started')
         .col-md-12.text-center
-          .form-group: input.form-control.input-lg(type='text', placeholder='enter your passphrase here')
-          button.btn.btn-default.btn-lg Generate
-      .row.noprint.bar
+          .form-group: input.form-control.input-lg.text-center.input_passphrase(type='text', placeholder='enter your passphrase here', ng-model='enter.value', ng-keyup='enterKeyUp($event)')
+          button.btn.btn-default.btn_generate(ng-disabled='!enter.valid', ng-click='enterGenerate()') Generate
+      .row.noprint
+        .col-md-12(ng-show='random.started')
+          h4.text-center.pulsaste Move your mouse to generate random bytes
+          uib-progressbar(max="100", value="random.progress")
+          .bytes.text-center
+            byte(ng-repeat='byte in random.tmp track by $index', ng-data='byte', animate-on-change='byte')
+
+    script(type='text/ng-template', id='byte')
+      .hex(ng-bind='hex')
+      .dec(ng-bind='dec')
+
+    script(type='text/ng-template', id='wallet')
+      .row.noprint.loading
         .col-md-12
-          h3.text-center.before.mouse_text.pulsate Move your mouse to generate random bytes
-          .progress: .progress-bar.active
-          h3.entropy-tmp.text-center.hash
-      .row.noprint.after
-        .col-md-12
-          .panel.panel-success
-            .panel-heading: h3.panel-title.text-center Your Lisk Address: (SHARE)
-            .panel-body.text-center
-              span#address.hash.address
+          .cssload-loader
       .row.noprint.after
         .col-md-12
           .panel.panel-danger
-            .panel-heading: h3.panel-title.text-center Your Passphrase: (SECRET! KEEP SAFE!)
+            .panel-heading: h3.panel-title.text-center Passphrase (SECRET)
             .panel-body.text-center
-              span#passphrase.hash.passphrase
-      .row.noprint.after.ppk
+              span.hash.passphrase(ng-bind='data.passphrase', clipboard)
+      .row.noprint.after
         .col-md-12
-          ul.list-group
+          .panel.panel-success
+            .panel-heading: h3.panel-title.text-center Lisk Address (SHARE)
+            .panel-body.text-center
+              span.hash.address(ng-bind='data.address', clipboard)
+      .row.noprint.after
+        .col-md-12
+          ul.list-group.data
             li.list-group-item
               span.badge entropy
-              span.hash.entropy
+              span.hash(ng-bind='data.entropy', clipboard)
             li.list-group-item
               span.badge seed
-              span.hash.seed
+              span.hash(ng-bind='data.seed', clipboard)
             li.list-group-item
-              span.badge passphrase's sha256
-              span.hash.passphraseHash
+              span.badge passphrase sha256
+              span.hash(ng-bind='data.hash', clipboard)
             li.list-group-item
               span.badge public key
-              span.hash.publicKey
+              span.hash(ng-bind='data.publicKey', clipboard)
             li.list-group-item
               span.badge private key
-              span.hash.privateKey
+              span.hash(ng-bind='data.privateKey', clipboard)
       .row.noprint.after
         .col-md-6.text-center
-          h3 Lisk Address (SHARE)
-          .qr_address
+          h3
+            = 'Address '
+            small SHARE
+          qrcode(data="data.address", size="280")
         .col-md-6.text-center
-          h3 Passphrase (SECRET)
-          .qr_passphrase
+          h3
+            = 'Passphrase '
+            small SECRET
+          qrcode(data="data.passphrase", size="280")
       .row.after
         .col-md-12.text-center
           h2.noprint Paper Wallet
           .papers.noprint
             .btn-group.btn-group-xs
-            input.show-amount(type="checkbox")
+              button.btn(ng-repeat="(id, art) in arts", ng-bind="id", ng-click="set_art(id)", ng-class="{ 'btn-warning': id === art_active }", ng-if="id > 0")
+            input.show-amount(type="checkbox", ng-model="amount")
             span= " Box to write amount"
-          .paper-wrapper.center-block: .paper
-            img
-            .qr.qr_address_paper
-            .qr.qr_passphrase_paper
-            .address
-            .address_label address
-            .passphrase
-            .passphrase_label passphrase
-            .amount_label amount:
+
+      .row.after
+        .col-md-12.text-center
+          .paper-wrapper.center-block(ng-style="{ width: art.width, height: art.height }")
+            .paper(ng-style="{ width: art.width, height: art.height }")
+              img(ng-src="images/{{ art.image }}{{ amount ? 'a' : '' }}.png")
+              qrcode(data="data.address", size="art.address.qr.size", ng-style="art.address.qr")
+              qrcode(data="data.passphrase", size="art.passphrase.qr.size", ng-style="art.passphrase.qr")
+              .address(ng-bind="data.address", ng-style="art.address.text")
+              .address_label(ng-hide="art.address.label.hide", ng-style="art.address.label") address
+              .passphrase(ng-bind="data.passphrase", ng-style="art.passphrase.text")
+              .passphrase_label(ng-hide="art.passphrase.label.hide", ng-style="art.passphrase.label") passphrase
+              .amount_label(ng-show="amount", ng-style="art.amount.label") amount:
+
       .row.noprint.after
-        .col-md-12.text-center: button.btn.btn-lg.btn-success.btn-print(type='button') Print Paper Wallet
-      #preload
+        .col-md-12.text-center
+          button.btn.btn-warning(type='button', ng-click="print()")
+            span.glyphicon.glyphicon-print(aria-hidden="true")
+            = " Print Paper Wallet"
+
     script(src='third-party/jquery/dist/jquery.min.js')
     script(src='third-party/jquery-qrcode/dist/jquery.qrcode.min.js')
-    //- script(src='third-party/bootstrap/bootstrap.min.js')
+    script(src='third-party/angular/angular.min.js')
+    script(src='third-party/angular-animate/angular-animate.min.js')
+    script(src='third-party/bootswatch-dist/js/bootstrap.min.js')
+    script(src='third-party/angular-bootstrap/ui-bootstrap-tpls.min.js')
     script(src='lib/liskwallet.js')
     script(src='lib/index.js')
     script#github-bjs(async, defer, src='https://buttons.github.io/buttons.js')
