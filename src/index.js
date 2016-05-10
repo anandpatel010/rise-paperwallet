@@ -91,6 +91,10 @@ let arts = {
 
 let app = angular.module('app', ['wallet', 'ngAnimate', 'ui.bootstrap'])
 
+app.config(($compileProvider) => {
+  $compileProvider.debugInfoEnabled(false)
+})
+
 app.controller('main', ($scope) => {
 })
 
