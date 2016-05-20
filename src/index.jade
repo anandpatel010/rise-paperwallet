@@ -68,13 +68,13 @@ html.no-js
       .row.noprint.after
         .col-md-12
           .panel.panel-danger
-            .panel-heading: h3.panel-title.text-center Passphrase (SECRET)
+            .panel-heading: h3.panel-title.text-center Secret Passphrase (KEEP SAFE)
             .panel-body.text-center
               span.hash.passphrase(ng-bind='data.passphrase', clipboard)
       .row.noprint.after
         .col-md-12
           .panel.panel-success
-            .panel-heading: h3.panel-title.text-center Lisk Address (SHARE)
+            .panel-heading: h3.panel-title.text-center Public Address (SHARE)
             .panel-body.text-center
               span.hash.address(ng-bind='data.address', clipboard)
       .row.noprint.after
@@ -98,13 +98,13 @@ html.no-js
       .row.noprint.after
         .col-md-6.text-center
           h3
-            = 'Address '
+            = 'Public Address '
             small SHARE
           qrcode(data="data.address", size="280")
         .col-md-6.text-center
           h3
-            = 'Passphrase '
-            small SECRET
+            = 'Secret Passphrase '
+            small KEEP SAFE
           qrcode(data="data.passphrase", size="280")
       .row.after
         .col-md-12.text-center
@@ -123,9 +123,9 @@ html.no-js
               qrcode(data="data.address", size="art.address.qr.size", ng-style="art.address.qr")
               qrcode(data="data.passphrase", size="art.passphrase.qr.size", ng-style="art.passphrase.qr")
               .address(ng-bind="data.address", ng-style="art.address.text")
-              .address_label(ng-hide="art.address.label.hide", ng-style="art.address.label") address
+              .address_label(ng-hide="art.address.label.hide", ng-style="art.address.label") public address
               .passphrase(ng-bind="data.passphrase", ng-style="art.passphrase.text")
-              .passphrase_label(ng-hide="art.passphrase.label.hide", ng-style="art.passphrase.label") passphrase
+              .passphrase_label(ng-hide="art.passphrase.label.hide", ng-style="art.passphrase.label") secret passphrase
               .amount_label(ng-show="amount", ng-style="art.amount.label") amount:
 
       .row.noprint.after

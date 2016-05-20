@@ -68,7 +68,7 @@
         <div class="col-md-12">
           <div class="panel panel-danger">
             <div class="panel-heading">
-              <h3 class="panel-title text-center">Passphrase (SECRET)</h3>
+              <h3 class="panel-title text-center">Secret Passphrase (KEEP SAFE)</h3>
             </div>
             <div class="panel-body text-center"><span ng-bind="data.passphrase" clipboard class="hash passphrase"></span></div>
           </div>
@@ -78,7 +78,7 @@
         <div class="col-md-12">
           <div class="panel panel-success">
             <div class="panel-heading">
-              <h3 class="panel-title text-center">Lisk Address (SHARE)</h3>
+              <h3 class="panel-title text-center">Public Address (SHARE)</h3>
             </div>
             <div class="panel-body text-center"><span ng-bind="data.address" clipboard class="hash address"></span></div>
           </div>
@@ -97,12 +97,12 @@
       </div>
       <div class="row noprint after">
         <div class="col-md-6 text-center">
-          <h3>Address <small>SHARE</small>
+          <h3>Public Address <small>SHARE</small>
           </h3>
           <qrcode data="data.address" size="280"></qrcode>
         </div>
         <div class="col-md-6 text-center">
-          <h3>Passphrase <small>SECRET</small>
+          <h3>Secret Passphrase <small>KEEP SAFE</small>
           </h3>
           <qrcode data="data.passphrase" size="280"></qrcode>
         </div>
@@ -125,9 +125,9 @@
               <qrcode data="data.address" size="art.address.qr.size" ng-style="art.address.qr"></qrcode>
               <qrcode data="data.passphrase" size="art.passphrase.qr.size" ng-style="art.passphrase.qr"></qrcode>
               <div ng-bind="data.address" ng-style="art.address.text" class="address"></div>
-              <div ng-hide="art.address.label.hide" ng-style="art.address.label" class="address_label">address</div>
+              <div ng-hide="art.address.label.hide" ng-style="art.address.label" class="address_label">public address</div>
               <div ng-bind="data.passphrase" ng-style="art.passphrase.text" class="passphrase"></div>
-              <div ng-hide="art.passphrase.label.hide" ng-style="art.passphrase.label" class="passphrase_label">passphrase</div>
+              <div ng-hide="art.passphrase.label.hide" ng-style="art.passphrase.label" class="passphrase_label">secret passphrase</div>
               <div ng-show="amount" ng-style="art.amount.label" class="amount_label">amount:</div>
             </div>
           </div>

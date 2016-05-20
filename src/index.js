@@ -29,7 +29,7 @@ let arts = {
         top: 205,
         left: 10,
         lineHeight: '26px',
-        fontSize: 22,
+        fontSize: 18,
         fontFamily: 'Inconsolata',
         fontWeight: 'bold',
         textShadow: '1px 1px 1px rgba(0, 0, 0, 0.3)'
@@ -60,7 +60,7 @@ let arts = {
         bottom: 205,
         right: 10,
         lineHeight: '26px',
-        fontSize: 22,
+        fontSize: 18,
         fontFamily: 'Inconsolata',
         fontWeight: 'bold',
         textShadow: '1px 1px 1px rgba(0, 0, 0, 0.3)'
