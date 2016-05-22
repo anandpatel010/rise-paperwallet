@@ -45,7 +45,6 @@ angular.module('wallet', [])
       validateMnemonic: (mnemonic) => {
         return bip39.validateMnemonic(mnemonic)
       },
-      generateMnemonic: bip39.generateMnemonic(),
       randomBytes: crypto.randomBytes,
       entropyToMnemonic: bip39.entropyToMnemonic
     }
