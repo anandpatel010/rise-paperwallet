@@ -17,7 +17,7 @@
 
 body {
   font-family: "Lato";
-  margin-bottom: 40px;
+  margin-bottom: 60px;
 }
 
 .page-header {
@@ -27,6 +27,17 @@ body {
     a {
       color: #222;
     }
+  }
+
+  h5 small {
+    color: #999;
+    a {
+      color: #555;
+    }
+  }
+
+  .version {
+    color: #bbb;
   }
 
   .gh-btns {
@@ -120,12 +131,12 @@ wallet {
     font-size: 100%;
 
     &.passphrase {
-      font-size: 150%;
+      font-size: 140%;
       font-weight: bold;
     }
 
     &.address {
-      font-size: 200%;
+      font-size: 170%;
       font-weight: bold;
     }
   }
@@ -136,11 +147,17 @@ wallet {
     }
   }
 
+  qrcode.big img {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+
   .paper-wrapper {
     position: relative;
     margin-top: 25px;
     margin-bottom: 25px;
     cursor: default;
+    border: 1px solid #777;
 
     * {
       position: absolute;

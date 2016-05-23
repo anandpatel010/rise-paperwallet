@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>liskpaperwallet.com</title>
+    <title>Lisk Paper Wallet v1.2.0</title>
     <meta name="description" content="Paper wallet generator for Lisk cryptocurrency.">
     <meta name="keywords" content="lisk,paperwallet,paper,wallet,cryptocurrency,lisk.io,crypti">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,12 +15,11 @@
       <div class="row noprint">
         <div class="col-md-12">
           <div class="page-header text-center">
-            <h1><a href="index.html">Lisk Paper Wallet</a> <small>v1.2.0</small>
+            <h1><a href="index.html">Lisk Paper Wallet</a> <span class="version">v1.2.0</span>
             </h1>
             <h5>Unofficial paper wallet generator for <a href="http://lisk.io" target="blank">Lisk</a> cryptocurrency. Hosted by Github Pages. Source code is available <a href="https://github.com/rferro/liskpaperwallet" target="blank">here</a>.
             </h5>
-            <h5>We recommended use this tool offline: <a href="https://github.com/rferro/liskpaperwallet/releases/tag/v1.2.0" class="alert-link">download</a> the source code and open index.html in your browser without internet access.
-            </h5>
+            <h5 class="text-center"><small>We recommended use this tool offline: <a href="https://github.com/rferro/liskpaperwallet/archive/v1.2.0.tar.gz" class="alert-link">download</a> the source code and open index.html in your browser without internet access.</small></h5>
           </div>
         </div>
       </div>
@@ -31,8 +30,8 @@
     <script type="text/ng-template" id="entropy">
       <div class="row noprint btns">
         <div class="col-md-12 text-center">
-          <button type="button" ng-click="random.start()" ng-disabled="btn_disabled" class="btn btn-info btn_random">Create a random wallet</button>
-          <button type="button" ng-click="enter.start()" ng-disabled="btn_disabled" class="btn btn-info">Enter your passphrase</button>
+          <button type="button" ng-click="random.start()" ng-disabled="btn_disabled" class="btn btn-info btn_random">Create a new random wallet</button>
+          <button type="button" ng-click="enter.start()" ng-disabled="btn_disabled" class="btn btn-info">Enter a secret passphrase</button>
         </div>
       </div>
       <div ng-show="enter.started" class="row noprint">
@@ -96,14 +95,14 @@
       </div>
       <div class="row noprint after">
         <div class="col-md-6 text-center">
-          <h3>Public Address <small>SHARE</small>
-          </h3>
-          <qrcode data="data.address" size="280"></qrcode>
+          <h2>Public Address <small>SHARE</small>
+          </h2>
+          <qrcode data="data.address" size="240" class="big"></qrcode>
         </div>
         <div class="col-md-6 text-center">
-          <h3>Secret Passphrase <small>KEEP SAFE</small>
-          </h3>
-          <qrcode data="data.passphrase" size="280"></qrcode>
+          <h2>Secret Passphrase <small>KEEP SAFE</small>
+          </h2>
+          <qrcode data="data.passphrase" size="240" class="big"></qrcode>
         </div>
       </div>
       <div class="row after">
@@ -111,15 +110,15 @@
           <h2 class="noprint">Paper Wallet</h2>
           <div class="papers noprint">
             <div class="btn-group btn-group-xs">
-              <button ng-repeat="(id, art) in arts" ng-bind="id" ng-click="set_art(id)" ng-class="{ 'btn-warning': id === art_active }" ng-if="id &gt; 0" class="btn"></button>
+              <button ng-repeat="(id, art) in arts" ng-bind="id" ng-click="set_art(id)" ng-class="{ 'btn-primary': id === art_active, 'btn-info': id !== art_active }" ng-if="id &gt; 0" class="btn"></button>
             </div>
-            <input type="checkbox" ng-model="amount" class="show-amount"><span> Box to write amount</span>
+            <button type="button" ng-model="amount" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" class="btn btn-xs btn-success">Show amount</button>
           </div>
         </div>
       </div>
       <div class="row after">
         <div class="col-md-12 text-center">
-          <div ng-style="{ width: art.width, height: art.height }" class="paper-wrapper center-block">
+          <div ng-style="{ width: art.width + 2, height: art.height + 2 }" class="paper-wrapper center-block">
             <div ng-style="{ width: art.width, height: art.height }" class="paper"><img ng-src="images/{{ art.image }}{{ amount ? 'a' : '' }}.png">
               <qrcode data="data.address" size="art.address.qr.size" ng-style="art.address.qr"></qrcode>
               <qrcode data="data.passphrase" size="art.passphrase.qr.size" ng-style="art.passphrase.qr"></qrcode>

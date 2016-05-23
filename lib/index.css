@@ -12,13 +12,22 @@
 }
 body {
   font-family: "Lato";
-  margin-bottom: 40px;
+  margin-bottom: 60px;
 }
 .page-header {
   border-bottom: 1px solid #efefef;
 }
 .page-header h1 a {
   color: #222;
+}
+.page-header h5 small {
+  color: #999;
+}
+.page-header h5 small a {
+  color: #555;
+}
+.page-header .version {
+  color: #bbb;
 }
 .page-header .gh-btns {
   height: 28px;
@@ -102,21 +111,26 @@ wallet .hash {
   font-size: 100%;
 }
 wallet .hash.passphrase {
-  font-size: 150%;
+  font-size: 140%;
   font-weight: bold;
 }
 wallet .hash.address {
-  font-size: 200%;
+  font-size: 170%;
   font-weight: bold;
 }
 wallet .data span:not(.badge) {
   color: #888;
+}
+wallet qrcode.big img {
+  padding: 10px;
+  border: 1px solid #ddd;
 }
 wallet .paper-wrapper {
   position: relative;
   margin-top: 25px;
   margin-bottom: 25px;
   cursor: default;
+  border: 1px solid #777;
 }
 wallet .paper-wrapper * {
   position: absolute;
