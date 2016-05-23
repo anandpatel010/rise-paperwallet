@@ -209,7 +209,7 @@ app.directive('entropy', ($rootScope, $document, $timeout, wallet, util) => {
           let last = [0, 0]
           let used = $scope.random.empty()
 
-          let turns = (window.location.protocol === 'file:' ? 2 : (25 + parseInt(Math.random() * 10)))
+          let turns = 20 + parseInt(Math.random() * 10)
           let steps = 1
           let total = turns * used.length
           let count = 0
