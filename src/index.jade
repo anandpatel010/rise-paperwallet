@@ -30,6 +30,12 @@ html.no-js
               = 'We recommended use this tool offline: '
               a.alert-link(href='https://github.com/rferro/liskpaperwallet/archive/v1.2.0.tar.gz') download
               = ' the source code and open index.html in your browser without internet access.'
+            .gh-btns
+              a.github-button(href='https://github.com/rferro/liskpaperwallet', data-icon='octicon-eye', data-style='mega', data-count-href='/rferro/liskpaperwallet/watchers', data-count-api='/repos/rferro/liskpaperwallet#subscribers_count', data-count-aria-label='# watchers on GitHub', aria-label='Watch rferro/liskpaperwallet on GitHub') Watch
+              a.github-button(href='https://github.com/rferro/liskpaperwallet', data-icon='octicon-star', data-style='mega', data-count-href='/rferro/liskpaperwallet/stargazers', data-count-api='/repos/rferro/liskpaperwallet#stargazers_count', data-count-aria-label='# stargazers on GitHub', aria-label='Star rferro/liskpaperwallet on GitHub') Star
+              a.github-button(href='https://github.com/rferro/liskpaperwallet/fork', data-icon='octicon-repo-forked', data-style='mega', data-count-href='/rferro/liskpaperwallet/network', data-count-api='/repos/rferro/liskpaperwallet#forks_count', data-count-aria-label='# forks on GitHub', aria-label='Fork rferro/liskpaperwallet on GitHub') Fork
+              a.github-button(href='https://github.com/rferro/liskpaperwallet/issues', data-icon='octicon-issue-opened', data-style='mega', data-count-api='/repos/rferro/liskpaperwallet#open_issues_count', data-count-aria-label='# issues on GitHub', aria-label='Issue rferro/liskpaperwallet on GitHub') Issue
+              a.github-button(href='https://github.com/rferro/liskpaperwallet/archive/master.zip', data-icon='octicon-cloud-download', data-style='mega', aria-label='Download rferro/liskpaperwallet on GitHub') Download
 
       entropy
       wallet
@@ -133,6 +139,7 @@ html.no-js
     script(src='third-party/angular-bootstrap/ui-bootstrap-tpls.min.js')
     script(src='lib/liskwallet.js')
     script(src='lib/index.js')
+    script#github-bjs(async, defer, src='https://buttons.github.io/buttons.js')
     script.
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
