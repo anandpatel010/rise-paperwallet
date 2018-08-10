@@ -29,7 +29,7 @@ angular.module('wallet', [])
             temp[i] = hash[7 - i]
           }
 
-          return bignum.fromBuffer(temp).toString() + 'L'
+          return bignum.fromBuffer(temp).toString() + 'R'
         }
 
         return {
