@@ -7,8 +7,8 @@
 ![rise-vision-url](https://i.gyazo.com/e28fbea4072ed0030b64af8b9be310a2.png)
 ## How to use:
 
-1. Download source.
-2. Go into folder
+1. Download source
+2. Unzip
 3. Open index.html with your browser
 4. Generate wallets to your heart's content!
 
@@ -18,6 +18,14 @@
 ~~~
 RISE - 12267657264235942760R
 ~~~
+
+## TODO:
+- [ ] Upload to github pages
+- [ ] Align printable wallet
+- [ ] custom url
+- [ ] other UI improvements
+- [ ] File size reductions
+
 
 [latestv]: https://github.com/spookiestevie/rise-paperwallet/releases
 [rise-vision-url]: https://rise.vision/
