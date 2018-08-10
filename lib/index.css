@@ -1,5 +1,5 @@
 @import '../third-party/Inconsolata/css/inconsolata.css';
-@import '../third-party/lato-font/css/lato-font.css';
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
 * {
   outline: 0 !important;
 }
@@ -11,23 +11,23 @@
   background: url(../images/01.png), url(../images/01a.png), url(../images/02.png), url(../images/02a.png);
 }
 body {
-  font-family: "Lato";
+  font-family: 'Josefin Sans', sans-serif;
   margin-bottom: 60px;
 }
 .page-header {
-  border-bottom: 1px solid #efefef;
+  border-bottom: 1px solid #000000;
 }
 .page-header h1 a {
-  color: #222;
+  color: #8d5d92;
 }
 .page-header h5 small {
-  color: #999;
+  color: #8d5d92;
 }
 .page-header h5 small a {
-  color: #555;
+  color: #8d5d92;
 }
 .page-header .version {
-  color: #bbb;
+  color: #fbceff;
 }
 .page-header .gh-btns {
   height: 28px;
@@ -45,14 +45,14 @@ entropy byte {
   display: inline-block;
   text-align: center;
   font-size: 160%;
-  font-family: Inconsolata;
+  font-family: 'Josefin Sans', sans-serif;
   padding: 4px 6px;
   color: #555;
   line-height: 1.1;
   margin: 2px;
   border-radius: 5px;
   text-transform: uppercase;
-  background-color: #95a5a6;
+  background-color: #2caf7d;
   color: #fff;
 }
 entropy byte .dec {
@@ -66,11 +66,11 @@ entropy byte.change-remove {
 entropy byte.change,
 entropy byte.change-add-active,
 entropy byte.change-remove {
-  background-color: #18bc9c;
+  background-color: #3ebb90;
   transform: scale(1.1);
 }
 entropy byte.change-remove-active {
-  background-color: #95a5a6;
+  background-color: #2caf7d;
   transform: none;
 }
 entropy .pulsate {
@@ -94,7 +94,7 @@ entropy .progress {
 }
 entropy .progress-bar {
   background-image: none;
-  background-color: #18bc9c;
+  background-color: #2caf7d;
   -webkit-transition: none;
   -moz-transition: none;
   -ms-transition: none;
@@ -102,24 +102,24 @@ entropy .progress-bar {
   transition: none;
 }
 entropy input {
-  font-family: Inconsolata;
+  font-family: 'Josefin Sans', sans-serif;
 }
 wallet .hash {
-  font-family: Inconsolata;
+  font-family: 'Josefin Sans', sans-serif;
   word-wrap: break-word;
   cursor: pointer;
   font-size: 100%;
 }
 wallet .hash.passphrase {
   font-size: 140%;
-  font-weight: bold;
+  font-weight: lighter;
 }
 wallet .hash.address {
   font-size: 170%;
-  font-weight: bold;
+  font-weight: lighter;
 }
 wallet .data span:not(.badge) {
-  color: #888;
+  color: #F49352;
 }
 wallet qrcode.big img {
   padding: 10px;
@@ -234,7 +234,7 @@ wallet .paper-wrapper .paper .amount_label {
   }
 }
 .top-banner {
-  background-color: #E10098;
+  background-color: #07575B;
   color: #fff;
   display: block;
   font-size: 90%;

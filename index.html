@@ -3,25 +3,29 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Lisk Paper Wallet v1.3.0</title>
-    <meta name="description" content="Paper wallet generator for Lisk cryptocurrency.">
-    <meta name="keywords" content="lisk,paperwallet,paper,wallet,cryptocurrency,lisk.io,crypti">
+    <title>Rise Paper Wallet Generator v1.3.0</title>
+    <meta name="description" content="Paper wallet generator for RISE cryptocurrency.">
+    <meta name="keywords" content="rise,paperwallet,paper,wallet,cryptocurrency,rise.vision,dpos">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="third-party/bootswatch-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="third-party/bootstrap-4.1.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Josefin+Sans">
+    <!--<link rel="stylesheet" href="third-party/bootswatch-dist/css/bootstrap.min.css">-->
+    <!--<link rel="stylesheet" href="third-party/spectre-0.5.3/dist/spectre.min.css">-->
     <link rel="stylesheet" href="lib/index.css">
   </head>
   <body ng-controller="main" ng-cloak>
-    <a href="https://www.cblocks.io/?utm_source=lskpw" target="_blank" class="top-banner">Looking for an easy way to get started with <b>Lisk</b>? Check out <b>CBlocks</b>!</a>
+  <div class="container-fluid" style="padding-top: 50px;">
     <div class="container-fluid">
       <div class="row noprint">
         <div class="col-md-12">
           <div class="page-header text-center">
-            <h1><a href="index.html">Lisk Paper Wallet</a> <span class="version">v1.3.0</span>
+            <h1><a href="index.html">RISE Paper Wallet</a> <span class="version">v1.3.0</span>
             </h1>
-            <h5>Unofficial paper wallet generator for <a href="http://lisk.io" target="blank">Lisk</a> cryptocurrency. Hosted by Github Pages. Source code is available <a href="https://github.com/rferro/liskpaperwallet" target="blank">here</a>.
+            <h5>Unofficial paper wallet generator for <a href="http://rise.vision" target="blank">RISE</a> cryptocurrency. Hosted by Github Pages. Source code is available <a href="https://github.com/spookiestevie/rise-paperwallet" target="blank">here</a>.
             </h5>
-            <h5 class="text-center"><small>We recommended use this tool offline: <a href="https://github.com/rferro/liskpaperwallet/archive/v1.3.0.tar.gz" class="alert-link">download</a> the source code and open index.html in your browser without internet access.</small></h5>
+            <h5 class="text-center"><small>We recommended use this tool offline: <a href="" class="alert-link">download</a> the source code and open index.html in your browser without internet access.</small></h5>
             <div class="gh-btns"><a href="https://github.com/rferro/liskpaperwallet" data-icon="octicon-eye" data-style="mega" data-count-href="/rferro/liskpaperwallet/watchers" data-count-api="/repos/rferro/liskpaperwallet#subscribers_count" data-count-aria-label="# watchers on GitHub" aria-label="Watch rferro/liskpaperwallet on GitHub" class="github-button">Watch</a><a href="https://github.com/rferro/liskpaperwallet" data-icon="octicon-star" data-style="mega" data-count-href="/rferro/liskpaperwallet/stargazers" data-count-api="/repos/rferro/liskpaperwallet#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star rferro/liskpaperwallet on GitHub" class="github-button">Star</a><a href="https://github.com/rferro/liskpaperwallet/fork" data-icon="octicon-repo-forked" data-style="mega" data-count-href="/rferro/liskpaperwallet/network" data-count-api="/repos/rferro/liskpaperwallet#forks_count" data-count-aria-label="# forks on GitHub" aria-label="Fork rferro/liskpaperwallet on GitHub" class="github-button">Fork</a><a href="https://github.com/rferro/liskpaperwallet/issues" data-icon="octicon-issue-opened" data-style="mega" data-count-api="/repos/rferro/liskpaperwallet#open_issues_count" data-count-aria-label="# issues on GitHub" aria-label="Issue rferro/liskpaperwallet on GitHub" class="github-button">Issue</a><a href="https://github.com/rferro/liskpaperwallet/archive/v1.3.0.tar.gz" data-icon="octicon-cloud-download" data-style="mega" aria-label="Download rferro/liskpaperwallet on GitHub" class="github-button">Download</a></div>
+            <br>
           </div>
         </div>
       </div>
@@ -32,8 +36,10 @@
     <script type="text/ng-template" id="entropy">
       <div class="row noprint btns">
         <div class="col-md-12 text-center">
-          <button type="button" ng-click="random.start()" ng-disabled="btn_disabled" class="btn btn-info btn_random">Create a new random wallet</button>
-          <button type="button" ng-click="enter.start()" ng-disabled="btn_disabled" class="btn btn-info">Enter a secret passphrase</button>
+          <br>
+          <button type="button" ng-click="random.start()" ng-disabled="btn_disabled" class="btn btn-outline-success btn_randomr">Create a new random wallet</button>
+          <button type="button" ng-click="enter.start()" ng-disabled="btn_disabled" class="btn btn-outline-success">Enter a secret passphrase</button>
+          <br>
         </div>
       </div>
       <div ng-show="enter.started" class="row noprint">
@@ -41,13 +47,13 @@
           <div class="form-group">
             <input type="text" placeholder="enter your passphrase here" ng-model="enter.value" ng-keyup="enterKeyUp($event)" class="form-control input-lg text-center input_passphrase">
           </div>
-          <button ng-disabled="!enter.valid" ng-click="enterGenerate()" class="btn btn-default btn_generate">Generate</button>
+          <button ng-disabled="!enter.valid" ng-click="enterGenerate()" class="btn btn-default btn-success">Generate</button>
         </div>
       </div>
       <div class="row noprint">
         <div ng-show="random.started" class="col-md-12">
           <h4 class="text-center pulsaste">Move your mouse to generate random bytes</h4>
-          <uib-progressbar max="100" value="random.progress"></uib-progressbar>
+          <uib-progressbar class="progress-bar-striped progress-bar-animated" max="100" value="random.progress"></uib-progressbar>
           <div class="bytes text-center">
             <byte ng-repeat="byte in random.tmp track by $index" ng-data="byte" animate-on-change="byte"></byte>
           </div>
@@ -68,9 +74,9 @@
         <div class="col-md-12">
           <div class="panel panel-danger">
             <div class="panel-heading">
-              <h3 class="panel-title text-center">Secret Passphrase (KEEP SAFE)</h3>
+              <h3 class="panel-title text-center text-danger">Secret Passphrase (KEEP SAFE):</h3>
             </div>
-            <div class="panel-body text-center"><span ng-bind="data.passphrase" clipboard class="hash passphrase"></span></div>
+            <div class="card panel-body text-center"><span ng-bind="data.passphrase" clipboard class="hash passphrase"></span></div><br>
           </div>
         </div>
       </div>
@@ -78,9 +84,9 @@
         <div class="col-md-12">
           <div class="panel panel-success">
             <div class="panel-heading">
-              <h3 class="panel-title text-center">Public Address (SHARE)</h3>
+              <h3 class="panel-title text-center text-success">Public Address (SHARE):</h3>
             </div>
-            <div class="panel-body text-center"><span ng-bind="data.address" clipboard class="hash address"></span></div>
+            <div class="card panel-body text-center"><span ng-bind="data.address" clipboard class="hash address"></span></div><br>
           </div>
         </div>
       </div>
@@ -97,24 +103,25 @@
       </div>
       <div class="row noprint after">
         <div class="col-md-6 text-center">
-          <h2>Public Address <small>SHARE</small>
-          </h2>
+          <br>
+          <h2>Public Address <small>(SHARE)</small></h2>
           <qrcode data="data.address" size="240" class="big"></qrcode>
         </div>
         <div class="col-md-6 text-center">
-          <h2>Secret Passphrase <small>KEEP SAFE</small>
-          </h2>
+          <br>
+          <h2><small>Secret Passphrase (KEEP SAFE)</small></h2>
           <qrcode data="data.passphrase" size="240" class="big"></qrcode>
         </div>
       </div>
       <div class="row after">
         <div class="col-md-12 text-center">
+          <br>
           <h2 class="noprint">Paper Wallet</h2>
           <div class="papers noprint">
             <div class="btn-group btn-group-xs">
-              <button ng-repeat="(id, art) in arts" ng-bind="id" ng-click="set_art(id)" ng-class="{ 'btn-primary': id === art_active, 'btn-info': id !== art_active }" ng-if="id &gt; 0" class="btn"></button>
+              <button ng-repeat="(id, art) in arts" ng-bind="id" ng-click="set_art(id)" ng-class="{ 'btn-warning': id === art_active, 'btn-outline-warning': id !== art_active }" ng-if="id &gt; 0" class="btn"></button>
             </div>
-            <button type="button" ng-model="amount" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" class="btn btn-xs btn-success">Show amount</button>
+            <button type="button" ng-model="amount" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" class="btn btn-xs btn-warning">Show amount</button>
           </div>
         </div>
       </div>
@@ -157,5 +164,6 @@
       ga('create', 'UA-75892665-1', 'auto');
       ga('send', 'pageview');
     </script>
+    </div>
   </body>
 </html>
