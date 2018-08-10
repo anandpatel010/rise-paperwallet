@@ -4,7 +4,7 @@
 
 
 
-[![rise-vision-url](https://i.gyazo.com/e28fbea4072ed0030b64af8b9be310a2.png)][rise-vision-url]
+[rise-vision-url](https://i.gyazo.com/e28fbea4072ed0030b64af8b9be310a2.png)
 ## How to use:
 
 1. Download source.
