@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="third-party/bootstrap-4.1.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="third-party/fonts/josefinsans.css">
+      <link rel="stylesheet" href="third-party/fonts/Inconsolata/css/inconsolata.css">
     <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
     <link rel="stylesheet" href="lib/index.css">
   </head>
@@ -123,8 +124,8 @@
           </div>
         </div>
       </div>
-      <div class="row after">
-        <div class="col-md-12 text-center" style="font-family: 'Josefin Sans', sans-serif;">
+      <div class="row after text-center">
+        <div class="col-md-12 text-center">
           <div ng-style="{ width: art.width + 2, height: art.height + 2 }" class="paper-wrapper center-block">
             <div ng-style="{ width: art.width, height: art.height }" class="paper"><img ng-src="images/{{ art.image }}{{ amount ? 'a' : '' }}.png">
               <qrcode data="data.address" size="art.address.qr.size" ng-style="art.address.qr"></qrcode>
