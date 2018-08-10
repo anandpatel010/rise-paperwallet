@@ -18,7 +18,7 @@
       <div class="row noprint">
         <div class="col-md-12">
           <div class="page-header text-center">
-            <h1><a href="index.html">RISE Paper Wallet Generator</a> <span class="version">v1.3.0</span>
+            <h1><a href="index.html">RISE Paper Wallet Generator</a> <span class="version">v1.3.1</span>
             </h1>
             <h5>Unofficial paper wallet generator for <a href="http://rise.vision" target="blank">RISE</a> cryptocurrency. Hosted by Github Pages. Source code is available <a href="https://github.com/spookiestevie/rise-paperwallet" target="blank">here</a>.
             </h5>
@@ -124,7 +124,7 @@
         </div>
       </div>
       <div class="row after">
-        <div class="col-md-12 text-center">
+        <div class="col-md-12 text-center" style="font-family: 'Josefin Sans', sans-serif;">
           <div ng-style="{ width: art.width + 2, height: art.height + 2 }" class="paper-wrapper center-block">
             <div ng-style="{ width: art.width, height: art.height }" class="paper"><img ng-src="images/{{ art.image }}{{ amount ? 'a' : '' }}.png">
               <qrcode data="data.address" size="art.address.qr.size" ng-style="art.address.qr"></qrcode>
