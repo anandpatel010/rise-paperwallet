@@ -10,7 +10,7 @@
 1. Download source.
 2. Go into folder
 3. Open index.html with your browser
-4. Done!
+4. Generate wallets to your heart's content!
 
 ## Donation for a ![extension-src](https://i.gyazo.com/082a59964320ef0fe4ac1f05bca5c60a.png)
 
@@ -18,8 +18,6 @@
 ~~~
 RISE - 12267657264235942760R
 ~~~
-
-[Go to rise.vision][rise-vision-url]
 
 [latestv]: https://github.com/spookiestevie/rise-paperwallet/releases
 [rise-vision-url]: https://rise.vision/
