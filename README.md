@@ -22,7 +22,7 @@ RISE - 12267657264235942760R
 ## TODO:
 - [ ] Align printable wallet
 - [ ] other UI improvements
-- [ ] File size reductions
+- [ ] File size reductions (use dpos-tools)
 
 
 [latest]: https://github.com/spookiestevie/rise-paperwallet/releases
