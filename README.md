@@ -24,6 +24,9 @@ RISE - 12267657264235942760R
 - [ ] other UI improvements
 - [ ] File size reductions (use dpos-tools)
 
+~~~
+Forked from rferro ^v^
+~~~
 
 [latest]: https://github.com/spookiestevie/rise-paperwallet/releases
 [rise-vision-url]: https://rise.vision/
