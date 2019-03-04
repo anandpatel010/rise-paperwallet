@@ -7,7 +7,7 @@
 ![rise-vision-url](https://i.gyazo.com/e28fbea4072ed0030b64af8b9be310a2.png)
 ## How to use:
 
-1. [Donwload][latest] source
+1. [Download][latest] source
 2. Unzip
 3. Open index.html with your browser
 4. Generate your wallets!
