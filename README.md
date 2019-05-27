@@ -29,8 +29,10 @@ RISE - 12267657264235942760R
 ## TODO:
 
 - [x] other UI improvements
-- [x] File size reductions (use dpos-tools)
 - [x] Align printable wallet
+- [x] Use dpos-offline
+- [ ] Offline functionality (eg construct transactions)
+- [ ] File size reductions (atm 17.5mb zipped)
 
 ~~~
 Forked from rferro ^v^
