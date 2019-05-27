@@ -1,7 +1,7 @@
 {
   "name": "risepaperwallet",
   "version": "2.0.0",
-  "description": "un-official paper wallet generator for Rise cryptocurrency.",
+  "description": "unofficial paper wallet generator for Rise cryptocurrency.",
   "homepage": "https://github.com/spookiestevie/rise-paperwallet",
   "bugs": "https://github.com/spookiestevie/rise-paperwallet/issues",
   "repository": {
