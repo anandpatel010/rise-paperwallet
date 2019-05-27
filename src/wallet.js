@@ -1,7 +1,7 @@
 import crypto from 'crypto'
 import bip39 from 'bip39'
-//import {RiseV2} from 'dpos-offline' future addresstype
 import {Rise} from 'dpos-offline'
+//import {RiseV2} from 'dpos-offline' for future address format change
 
 angular.module('wallet', [])
   .factory('wallet', () => {
@@ -9,11 +9,11 @@ angular.module('wallet', [])
     return {
       mnemonicToData: (passphrase) => {
         if (!passphrase) {
-          passphrase = bip39.generateMnemonic()
+          passphrase = bip39.generateMnemonic();
         }
-        let publicKey = Rise.deriveKeypair(passphrase).publicKey.toString('hex')
-        let privateKey = Rise.deriveKeypair(passphrase).privateKey.toString('hex')
-        let address = Rise.calcAddress(Rise.deriveKeypair(passphrase).publicKey)
+        let publicKey = Rise.deriveKeypair(passphrase).publicKey.toString('hex');
+        let privateKey = Rise.deriveKeypair(passphrase).privateKey.toString('hex');
+        let address = Rise.calcAddress(Rise.deriveKeypair(passphrase).publicKey);
 
         return {
           passphrase,
