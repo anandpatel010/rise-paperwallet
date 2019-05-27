@@ -1,94 +1,4 @@
 
-let arts = {
-  '0': {
-    image: '01',
-    width: 780,
-    height: 360,
-    address: {
-      qr: {
-        size: 150,
-        width: '150px',
-        height: '150px',
-        top: 45,
-        left: 15
-      },
-      text: {
-        width: 760,
-        height: 20,
-        lineHeight: '20px',
-        padding: '0 4px',
-        fontSize: 16,
-        fontFamily: 'Inconsolata',
-        fontWeight: 'bold',
-        top: 10,
-        left: 10,
-        textAlign: 'left'
-      },
-      label: {
-        hide: false,
-        top: 205,
-        left: 10,
-        lineHeight: '26px',
-        fontSize: 18,
-        fontFamily: 'Inconsolata',
-        fontWeight: 'bold',
-        textShadow: '1px 1px 1px rgba(0, 0, 0, 0.3)'
-      }
-    },
-    passphrase: {
-      qr: {
-        size: 150,
-        width: '150px',
-        height: '150px',
-        bottom: 45,
-        right: 15
-      },
-      text: {
-        width: 760,
-        height: 20,
-        lineHeight: '20px',
-        padding: '0 4px',
-        fontSize: 14,
-        fontFamily: 'Inconsolata',
-        fontWeight: 'bold',
-        bottom: 10,
-        left: 10,
-        textAlign: 'right'
-      },
-      label: {
-        hide: false,
-        bottom: 205,
-        right: 10,
-        lineHeight: '26px',
-        fontSize: 18,
-        fontFamily: 'Inconsolata',
-        fontWeight: 'bold',
-        textShadow: '1px 1px 1px rgba(0, 0, 0, 0.3)'
-      }
-    },
-    amount: {
-      label: {
-        top: 40,
-        left: 300,
-        height: 30,
-        lineHeight: '30px',
-        paddingLeft: 8,
-        fontSize: 14,
-        fontFamily: 'Inconsolata',
-        textShadow: '1px 1px 1px rgba(0, 0, 0, 0.3)'
-      }
-    }
-  },
-  '1': {
-    extend: '0',
-    image: '01'
-  },
-  '2': {
-    extend: '0',
-    image: '02'
-  }
-}
-
 let app = angular.module('app', ['wallet', 'ngAnimate', 'ui.bootstrap'])
 
 app.config(($compileProvider) => {
@@ -147,6 +57,8 @@ app.directive('entropy', ($rootScope, $document, $timeout, wallet, util) => {
         scope.btn.disable()
         scope.enter.stop()
 
+        scope.stage = 2
+
         $timeout(() => $rootScope.$broadcast('wallet_start', fix($input.val())))
       }
 
@@ -178,6 +90,8 @@ app.directive('entropy', ($rootScope, $document, $timeout, wallet, util) => {
         }
       }
 
+      $scope.stage = 1
+
       $rootScope.$on('btn_disabled', () => {
         $scope.btn.disable()
       })
@@ -200,6 +114,8 @@ app.directive('entropy', ($rootScope, $document, $timeout, wallet, util) => {
         start () {
           $scope.btn.disable()
 
+          $scope.stage = 2
+
           $scope.random.started = true
 
           $rootScope.$broadcast('wallet_stop')
@@ -209,7 +125,7 @@ app.directive('entropy', ($rootScope, $document, $timeout, wallet, util) => {
           let last = [0, 0]
           let used = $scope.random.empty()
 
-          let turns = 20 + parseInt(Math.random() * 10)
+          let turns = 4 + parseInt(Math.random() * 10)
           let steps = 1
           let total = turns * used.length
           let count = 0
@@ -282,6 +198,8 @@ app.directive('entropy', ($rootScope, $document, $timeout, wallet, util) => {
 
           $scope.enter.started = true
 
+          $scope.stage = 1.5
+
           $scope.enter.reset()
           $scope.enterFocus()
         }
@@ -313,23 +231,6 @@ app.directive('wallet', ($rootScope, $timeout, wallet) => {
       let $loading = elem.find('.loading').hide()
       let $after = elem.find('.after').hide()
 
-      scope.arts = arts
-
-      let extendArt = (id) => {
-        if (!scope.arts[id]) {
-          return {}
-        }
-
-        return angular.merge({}, extendArt(scope.arts[id].extend), scope.arts[id])
-      }
-
-      scope.set_art = (id) => {
-        scope.art_active = id
-        scope.art = extendArt(scope.art_active)
-      }
-
-      scope.set_art('1')
-
       $rootScope.$on('wallet_start', (ev, passphrase) => {
         $loading.show()
 
@@ -349,6 +250,19 @@ app.directive('wallet', ($rootScope, $timeout, wallet) => {
 
       scope.print = () => {
         window.print()
+      }
+      scope.save = () => {
+        var toScreenshot = jQuery(document.body);
+        var scrollPosition = toScreenshot.scrollTop();
+        html2canvas(document.body, {
+          onrendered: function(canvas) {
+            toScreenshot.scrollTop(scrollPosition);
+            var link = document.createElement('a');
+            link.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
+            link.download = 'ark-paperwallet.jpg';
+            link.click();
+          }
+        });
       }
     }
   }
