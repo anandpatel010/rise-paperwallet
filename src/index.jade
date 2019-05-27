@@ -3,9 +3,9 @@ html.no-js
   head
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
-    title ARK Paper Wallet
-    meta(name='description', content='Paper wallet generator for Ark cryptocurrency.')
-    meta(name='keywords', content='ark,paperwallet,paper,wallet,cryptocurrency,ark.io,crypti')
+    title RISE Paper Wallet
+    meta(name='description', content='Paper wallet generator for RISE cryptocurrency.')
+    meta(name='keywords', content='RISE,rise,paperwallet,paper,wallet,cryptocurrency,rise.vision,crypti')
     meta(name='viewport', content='width=device-width, initial-scale=1')
 
     link(rel='shortcut icon', href='images/favicon.ico', type='image/x-icon')
@@ -18,14 +18,14 @@ html.no-js
         .col-md-12.bg-band-grey
           .page-header.text-center.logo
             a(href='index.html')
-              img(src='images/logo.png', title='Ark Paper Wallet', alt='Ark Paper Wallet')
+              img(src='images/logo.png', title='RISE Paper Wallet', alt='RISE Paper Wallet')
         .col-md-12.bg-band-grey.title-container
           .page-header.text-center
             h1.site-title
-              | ARK Paper Wallet
+              | RISE Paper Wallet
             h5.site-slogan
               = 'Generate Your Own Unique '
-              a(href='http://ark.io', target='blank') ARK
+              a(href='http://rise.vision', target='blank') RISE
               = ' Passphrase and Address'
 
       entropy
@@ -33,10 +33,10 @@ html.no-js
 
       div.noprint
         .footer.text-center
-          = 'Hosted by GitHub Pages. Source code is available '
-          a(href='https://github.com/arkecosystem/paper-wallet', target='blank') here
+          = 'Hosted by spookiestevie. Source code is available '
+          a(href='https://github.com/spookiestevie/rise-paperwallet', target='blank') here
           = '. You can download and run locally '
-          a(href='https://github.com/ArkEcosystem/paper-wallet/archive/master.zip', target='blank') here
+          a(href='https://github.com/spookiestevie/rise-paperwallet/releases', target='blank') here
           = '.'
 
     script(type='text/ng-template', id='entropy')
@@ -98,8 +98,8 @@ html.no-js
               h5 Public Key
               p.hash(ng-bind='data.publicKey', clipboard)
             .key-data-item
-              h5 WIF
-              p.hash(ng-bind='data.wif', clipboard)
+              h5 Private Key
+              p.hash(ng-bind='data.privateKey', clipboard)
       .row.noprint.after
         .col-md-12.text-center
           button.btn.btn-print(type='button', ng-click='print()')
