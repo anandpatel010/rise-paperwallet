@@ -31,7 +31,7 @@ RISE - 12267657264235942760R
 - [x] other UI improvements
 - [x] Align printable wallet
 - [x] Use dpos-offline
-- [ ] Offline functionality (eg construct transactions)
+- [ ] Offline transaction signing functionality
 - [ ] File size reductions (atm 17.5mb zipped)
 
 ~~~
